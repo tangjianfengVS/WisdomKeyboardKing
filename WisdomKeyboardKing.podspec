@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WisdomKeyboardKing"
-  s.version      = "0.0.6"
+  s.version      = "0.0.7"
   s.summary      = "A short description of WisdomKeyboardKing."
 
   # This description is used to generate tags and improve search results.
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/tangjianfengVS/WisdomKeyboardKing.git", :tag => "0.0.6" }
+  s.source       = { :git => "https://github.com/tangjianfengVS/WisdomKeyboardKing.git", :tag => "0.0.7" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -89,7 +89,8 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "WisdomKeyboardKing/Classes/**/**/*.{swift}"
+  s.source_files  = "WisdomKeyboardKing", "WisdomKeyboardKing/**/*.{h,m}"
+
   s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
