@@ -19,7 +19,7 @@ Func:
                changeTasks: a callback when changing text content
                   endTasks: a callback when the keyboard is closed or the appropriate object is replaced
                   
-   Use case:
+        Use case:
             textField.wisdomTask(beginTasks: { (view, title, rect) in
             print(view,title,rect)
         }, changeTasks: { (view, title, rect) in
@@ -53,7 +53,7 @@ Func:
                 changeTasks：  变化文字内容时回调                        
                    endTasks:   关闭键盘或者更换相应对象时回调
                    
-使用案例：
+        使用案例：
         textField.wisdomTask(beginTasks: { (view, title, rect) in
             print(view,title,rect)
         }, changeTasks: { (view, title, rect) in
