@@ -1,0 +1,84 @@
+//
+//  WisdomTextFiled+Extension.swift
+//  jianfeng
+//
+//  Created by jianfeng on 2018/8/6.
+//  Copyright © 2018年 AllOverTheSkyStar. All rights reserved.
+//
+
+import UIKit
+
+private var WisdomTransformTargetKey_TextField = "WisdomTransformTargetKey_TextField";
+private var WisdomBetweenKeyboardKey_TextField = "WisdomBetweenKeyboardKey_TextField";
+private var WisdomBeginTaskKey_TextField = "WisdomBeginTaskKey_TextField";
+private var WisdomChangeTaskKey_TextField = "WisdomChangeTaskKey_TextField";
+private var WisdomEndTaskKey_TextField = "WisdomEndTaskKey_TextField";
+
+extension UITextField {
+    var wisdomTransformTarget: WisdomTransformTargetType{
+        get{
+            if let target = objc_getAssociatedObject(self, &WisdomTransformTargetKey_TextField) as? WisdomTransformTargetType{
+                return target
+            }
+            return .root
+        }
+        set(newValue){
+            objc_setAssociatedObject(self, &WisdomTransformTargetKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    var betweenKeyboardSpace: CGFloat{
+        get{
+            if let space = objc_getAssociatedObject(self, &WisdomBetweenKeyboardKey_TextField) as? CGFloat{
+                return space > 0 ? space:0
+            }
+            return KeyboardBaseSpace
+        }
+        set(newValue){
+            objc_setAssociatedObject(self, &WisdomBetweenKeyboardKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    private(set) var beginTask: WisdomEventTask?{
+        get{
+            if let block = objc_getAssociatedObject(self, &WisdomBeginTaskKey_TextField) as? WisdomEventTask{
+                return block
+            }
+            return nil
+        }
+        set(newValue){
+            objc_setAssociatedObject(self, &WisdomBeginTaskKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    private(set) var changeTask: WisdomEventTask?{
+        get{
+            if let block = objc_getAssociatedObject(self, &WisdomChangeTaskKey_TextField) as? WisdomEventTask{
+                return block
+            }
+            return nil
+        }
+        set(newValue){
+            objc_setAssociatedObject(self, &WisdomChangeTaskKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    private(set) var endTask: WisdomEventTask?{
+        get{
+            if let block = objc_getAssociatedObject(self, &WisdomEndTaskKey_TextField) as? WisdomEventTask{
+                return block
+            }
+            return nil
+        }
+        set(newValue){
+            objc_setAssociatedObject(self, &WisdomEndTaskKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    func wisdomTask(beginTasks: @escaping WisdomEventTask, changeTasks: @escaping WisdomEventTask, endTasks: @escaping WisdomEventTask) {
+        beginTask = beginTasks
+        changeTask = beginTasks
+        endTask = endTasks
+    }
+}
+
