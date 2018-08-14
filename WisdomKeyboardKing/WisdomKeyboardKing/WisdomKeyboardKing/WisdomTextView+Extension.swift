@@ -8,11 +8,11 @@
 
 import UIKit
 
-private var WisdomTransformTargetKey_TextView = "WisdomTransformTargetKey_TextField";
-private var WisdomBetweenKeyboardKey_TextView = "WisdomBetweenKeyboardKey_TextField";
-private var WisdomBeginTaskKey_TextView = "WisdomBeginTaskKey_TextField";
-private var WisdomChangeTaskKey_TextView = "WisdomChangeTaskKey_TextField";
-private var WisdomEndTaskKey_TextView = "WisdomEndTaskKey_TextField";
+fileprivate var WisdomTransformTargetKey_TextView = "WisdomTransformTargetKey_TextField";
+fileprivate var WisdomBetweenKeyboardKey_TextView = "WisdomBetweenKeyboardKey_TextField";
+fileprivate var WisdomBeginTaskKey_TextView = "WisdomBeginTaskKey_TextField";
+fileprivate var WisdomChangeTaskKey_TextView = "WisdomChangeTaskKey_TextField";
+fileprivate var WisdomEndTaskKey_TextView = "WisdomEndTaskKey_TextField";
 
 extension UITextView {
     var wisdomTransformTarget: WisdomTransformTargetType{

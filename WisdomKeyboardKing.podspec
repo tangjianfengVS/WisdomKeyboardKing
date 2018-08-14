@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WisdomKeyboardKing"
-  s.version      = "0.1.3"
+  s.version      = "0.1.4"
   s.summary      = "A short description of WisdomKeyboardKing."
 
   # This description is used to generate tags and improve search results.
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/tangjianfengVS/WisdomKeyboardKing.git", :tag => "0.1.3" }
+  s.source       = { :git => "https://github.com/tangjianfengVS/WisdomKeyboardKing.git", :tag => "0.1.4" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -117,7 +117,7 @@ Pod::Spec.new do |s|
   #
 
   # s.framework  = "SomeFramework"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
+  s.frameworks = "Foundation","UIKit"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"

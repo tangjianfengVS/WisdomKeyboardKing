@@ -37,33 +37,33 @@ extension UIApplication {
 }
 
 class WisdomKeyboardKing: NSObject,SelfAware{
-    private var keyboardType: WisdomKeyboardType = .sleep
-    private var transformView: UIView?
-    private var responseView: UIView?
+    fileprivate var keyboardType: WisdomKeyboardType = .sleep
+    fileprivate var transformView: UIView?
+    fileprivate var responseView: UIView?
     
-    private var transformSumY: CGFloat = 0
-    private let animateTime: TimeInterval = 0.2
-    private var keyboardFrame: CGRect = .zero
+    fileprivate var transformSumY: CGFloat = 0
+    fileprivate let animateTime: TimeInterval = 0.2
+    fileprivate var keyboardFrame: CGRect = .zero
     
-    private var formerTapGestures: [UITapGestureRecognizer]?
+    fileprivate var formerTapGestures: [UITapGestureRecognizer]?
     
-    private lazy var currentTapGesture: UITapGestureRecognizer={
+    fileprivate lazy var currentTapGesture: UITapGestureRecognizer={
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapGesture(tap:)))
         return tap
     }()
     
-    private static let shared = WisdomKeyboardKing()
+    fileprivate static let shared = WisdomKeyboardKing()
     
     internal static func awake() {
         let _ = WisdomKeyboardKing.shared
     }
     
-    private override init() {
+    fileprivate override init() {
         super.init()
         registerNotifications()
     }
     
-    private func registerNotifications(){
+    fileprivate func registerNotifications(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(noti:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(noti:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -77,7 +77,7 @@ class WisdomKeyboardKing: NSObject,SelfAware{
     /**
      * Add customised Notification for third party customised TextField/TextView.
      */
-    private func registerTextFieldViewClass(textClass: AnyClass,
+    fileprivate func registerTextFieldViewClass(textClass: AnyClass,
                                             didBeginEditingNotificationName: Notification.Name,
                                             didChangeNotificationName: Notification.Name,
                                             didEndEditingNotificationName: Notification.Name){
@@ -88,7 +88,7 @@ class WisdomKeyboardKing: NSObject,SelfAware{
         NotificationCenter.default.addObserver(self, selector: #selector(textViewDidEndEditing(noti:)), name: didEndEditingNotificationName, object: nil)
     }
     
-    @objc private func textViewDidBeginEditing(noti: Notification) {
+    @objc fileprivate func textViewDidBeginEditing(noti: Notification) {
         
         func nextView(view: UIView)->UIView?{
             var nextRes = view.next
@@ -151,7 +151,7 @@ class WisdomKeyboardKing: NSObject,SelfAware{
         }
     }
     
-    @objc private func textViewDidEndEditing(noti: Notification) {
+    @objc fileprivate func textViewDidEndEditing(noti: Notification) {
         if let textField = noti.object as? UITextField{
             if textField.endTask != nil{
                 let window = UIApplication.shared.delegate?.window!
@@ -169,7 +169,7 @@ class WisdomKeyboardKing: NSObject,SelfAware{
 }
 
 extension WisdomKeyboardKing {
-    @objc private func textViewDidChange(noti: Notification) {
+    @objc fileprivate func textViewDidChange(noti: Notification) {
         if let textField = noti.object as? UITextField{
             if textField.changeTask != nil{
                 let window = UIApplication.shared.delegate?.window!
@@ -185,7 +185,7 @@ extension WisdomKeyboardKing {
         }
     }
     
-    @objc private func keyBoardWillShow(noti: Notification){
+    @objc fileprivate func keyBoardWillShow(noti: Notification){
         if let keyboardFrame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.keyboardFrame = keyboardFrame
             
@@ -205,7 +205,7 @@ extension WisdomKeyboardKing {
         }
     }
     
-    @objc private func keyBoardWillHide(noti: Notification){
+    @objc fileprivate func keyBoardWillHide(noti: Notification){
         UIView.animate(withDuration: animateTime, animations: {
             self.transformView?.transform = CGAffineTransform.identity
         }) { (_) in
@@ -220,7 +220,7 @@ extension WisdomKeyboardKing {
     /*
      *  Keyboard status interactive processing
      */
-    private func transformAction(responseMaY: CGFloat){
+    fileprivate func transformAction(responseMaY: CGFloat){
         switch keyboardType {
         case .sleep:
             if responseMaY > keyboardFrame.origin.y{
@@ -264,7 +264,7 @@ extension WisdomKeyboardKing {
         }
     }
     
-    @objc private func tapGesture(tap: UITapGestureRecognizer) {
+    @objc fileprivate func tapGesture(tap: UITapGestureRecognizer) {
         transformView?.endEditing(true)
     }
 }
