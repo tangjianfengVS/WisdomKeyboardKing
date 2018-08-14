@@ -18,5 +18,4 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/tangjianfengVS/WisdomKeyboardKing.git", :tag => s.version }
 
   s.source_files  = "WisdomKeyboardKing/WisdomKeyboardKing/WisdomKeyboardKing/*.swift"
-  s.frameworks = "Foundation","UIKit"
 end
