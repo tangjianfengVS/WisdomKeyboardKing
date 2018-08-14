@@ -16,7 +16,7 @@ class NothingToSeeHere {
     static func harmlessFunction() {
         let typeCount = Int(objc_getClassList(nil, 0))
         let types = UnsafeMutablePointer<AnyClass>.allocate(capacity: typeCount)
-        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
+        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyObject.Type>(types)
         objc_getClassList(autoreleasingTypes, Int32(typeCount))
         for index in 0 ..< typeCount {
             (types[index] as? SelfAware.Type)?.awake()
