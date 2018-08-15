@@ -8,20 +8,21 @@
 
 import UIKit
 
-protocol SelfAware: class{
-    static func awake()
-}
+//protocol SelfAware: class{
+//    static func awake()
+//}
 
 class NothingToSeeHere {
     static func harmlessFunction() {
-        let typeCount = Int(objc_getClassList(nil, 0))
-        let types = UnsafeMutablePointer<AnyClass>.allocate(capacity: typeCount)
-        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyObject.Type>(types)
-        objc_getClassList(autoreleasingTypes, Int32(typeCount))
-        for index in 0 ..< typeCount {
-            (types[index] as? SelfAware.Type)?.awake()
-        }
-        types.deallocate()
+//        let typeCount = Int(objc_getClassList(nil, 0))
+//        let types = UnsafeMutablePointer<AnyObject.Type>.allocate(capacity: typeCount)
+//        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
+//        objc_getClassList(autoreleasingTypes, Int32(typeCount))
+//        for index in 0 ..< typeCount {
+//            (types[index] as? SelfAware.Type)?.awake()
+//        }
+//        types.deallocate()
+        let _ = WisdomKeyboardKing.shared
     }
 }
 
@@ -36,7 +37,7 @@ extension UIApplication {
     }
 }
 
-class WisdomKeyboardKing: NSObject,SelfAware{
+class WisdomKeyboardKing: NSObject{
     fileprivate var keyboardType: WisdomKeyboardType = .sleep
     fileprivate var transformView: UIView?
     fileprivate var responseView: UIView?
@@ -54,9 +55,9 @@ class WisdomKeyboardKing: NSObject,SelfAware{
     
     fileprivate static let shared = WisdomKeyboardKing()
     
-    internal static func awake() {
-        let _ = WisdomKeyboardKing.shared
-    }
+//    internal static func awake() {
+//        let _ = WisdomKeyboardKing.shared
+//    }
     
     fileprivate override init() {
         super.init()
