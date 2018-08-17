@@ -14,7 +14,7 @@ class TextVCViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bottomField.textContentMode = .PhoneNumber11_3
+        bottomField.textContentMode = .BankcardNumber19_4
 
         bottomField.wisdomTask(beginTasks: { (view, title, rect) in
             //print(view,title,rect)

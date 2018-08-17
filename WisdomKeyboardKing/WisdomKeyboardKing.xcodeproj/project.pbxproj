@@ -18,6 +18,7 @@
 		A5C450B62120636F00AC29C9 /* WisdomTextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C450B22120636F00AC29C9 /* WisdomTextView+Extension.swift */; };
 		A5C450B72120636F00AC29C9 /* WisdomKeyboardConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C450B32120636F00AC29C9 /* WisdomKeyboardConfig.swift */; };
 		A5C450B82120636F00AC29C9 /* WisdomKeyboardKing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C450B42120636F00AC29C9 /* WisdomKeyboardKing.swift */; };
+		A5C899B82127164900031CDD /* WisdomTextOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C899B72127164900031CDD /* WisdomTextOutput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		A5C450B22120636F00AC29C9 /* WisdomTextView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WisdomTextView+Extension.swift"; sourceTree = "<group>"; };
 		A5C450B32120636F00AC29C9 /* WisdomKeyboardConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WisdomKeyboardConfig.swift; sourceTree = "<group>"; };
 		A5C450B42120636F00AC29C9 /* WisdomKeyboardKing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WisdomKeyboardKing.swift; sourceTree = "<group>"; };
+		A5C899B72127164900031CDD /* WisdomTextOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomTextOutput.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				A5C450B22120636F00AC29C9 /* WisdomTextView+Extension.swift */,
 				A5C450B32120636F00AC29C9 /* WisdomKeyboardConfig.swift */,
 				A5C450B42120636F00AC29C9 /* WisdomKeyboardKing.swift */,
+				A5C899B72127164900031CDD /* WisdomTextOutput.swift */,
 			);
 			path = WisdomKeyboardKing;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				A5C450B62120636F00AC29C9 /* WisdomTextView+Extension.swift in Sources */,
 				A5C450AF21205CB200AC29C9 /* TextVCViewController.swift in Sources */,
 				A5C450B82120636F00AC29C9 /* WisdomKeyboardKing.swift in Sources */,
+				A5C899B82127164900031CDD /* WisdomTextOutput.swift in Sources */,
 				A5C4509D21205C9500AC29C9 /* ViewController.swift in Sources */,
 				A5C450B72120636F00AC29C9 /* WisdomKeyboardConfig.swift in Sources */,
 				A5C450B52120636F00AC29C9 /* WisdomTextFiled+Extension.swift in Sources */,

@@ -258,46 +258,10 @@ extension WisdomKeyboardKing {
     }
     
     fileprivate func textFieldContentMode(textField: UITextField){
-        if textField.text == nil || textField.textContentMode == .normal{
+        if textField.text == nil {
             return
         }
-        let newStr = textField.text!.replacingOccurrences(of: " ", with: "")
-        if newStr.count == 0{
-            return
-        }
-        var length: Int = 0
-        var lengthSum: Int = 0
-        switch textField.textContentMode {
-        case .PhoneNumber11_3?:
-            length = 3
-            lengthSum = 11
-        case .PhoneNumber11_4?:
-            length = 4
-            lengthSum = 11
-        case .BankcardNumber16_4?:
-            length = 4
-            lengthSum = 16
-        case .BankcardNumber19_4?:
-            length = 4
-            lengthSum = 19
-        default : break
-        }
-        
-        if newStr.count > lengthSum {
-            let group = lengthSum / length
-            let index = textField.text!.index(textField.text!.startIndex, offsetBy:lengthSum+group)
-            let result = textField.text![textField.text!.startIndex..<index]
-            textField.text = String(result)
-            
-        }else if newStr.count > length && newStr.count % length == 1{
-            let startIndex = textField.text!.index(textField.text!.endIndex, offsetBy:-2)
-            let endIndex = textField.text!.index(startIndex, offsetBy:1)
-            let result = textField.text![startIndex..<endIndex]
-            if result != " "{
-                let index = textField.text!.index(before: textField.text!.endIndex)
-                textField.text!.insert(" ", at: index)
-            }
-        }
+        textField.text! = WisdomTextOutput.textOutput(textString: textField.text!, type: textField.textContentMode!)
     }
     
     @objc fileprivate func tapGesture(tap: UITapGestureRecognizer) {
