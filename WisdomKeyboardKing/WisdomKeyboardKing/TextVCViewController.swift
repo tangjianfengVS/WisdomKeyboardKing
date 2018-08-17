@@ -14,6 +14,7 @@ class TextVCViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bottomField.textContentMode = .PhoneNumber11_3
 
         bottomField.wisdomTask(beginTasks: { (view, title, rect) in
             //print(view,title,rect)
@@ -32,6 +33,14 @@ class TextVCViewController: UIViewController {
         }
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(click)))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 1.5) {
+            self.view.transform = CGAffineTransform(translationX: 0, y: -100)
+        }
     }
 
     override func didReceiveMemoryWarning() {

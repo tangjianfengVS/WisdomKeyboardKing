@@ -13,6 +13,7 @@ fileprivate var WisdomBetweenKeyboardKey_TextField = "WisdomBetweenKeyboardKey_T
 fileprivate var WisdomBeginTaskKey_TextField = "WisdomBeginTaskKey_TextField";
 fileprivate var WisdomChangeTaskKey_TextField = "WisdomChangeTaskKey_TextField";
 fileprivate var WisdomEndTaskKey_TextField = "WisdomEndTaskKey_TextField";
+fileprivate var WisdomContentModeKey_TextField = "WisdomContentModeKey_TextField";
 
 extension UITextField {
     var wisdomTransformTarget: WisdomTransformTargetType{
@@ -72,6 +73,18 @@ extension UITextField {
         }
         set(newValue){
             objc_setAssociatedObject(self, &WisdomEndTaskKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    var textContentMode: UITextFieldTitleContentMode?{
+        get{
+            if let mode = objc_getAssociatedObject(self, &WisdomContentModeKey_TextField) as? UITextFieldTitleContentMode{
+                return mode
+            }
+            return .normal
+        }
+        set(newValue){
+            objc_setAssociatedObject(self, &WisdomContentModeKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     

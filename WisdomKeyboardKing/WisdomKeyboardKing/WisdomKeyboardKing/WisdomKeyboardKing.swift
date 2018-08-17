@@ -8,20 +8,8 @@
 
 import UIKit
 
-//protocol SelfAware: class{
-//    static func awake()
-//}
-
 class NothingToSeeHere {
     static func harmlessFunction() {
-//        let typeCount = Int(objc_getClassList(nil, 0))
-//        let types = UnsafeMutablePointer<AnyObject.Type>.allocate(capacity: typeCount)
-//        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
-//        objc_getClassList(autoreleasingTypes, Int32(typeCount))
-//        for index in 0 ..< typeCount {
-//            (types[index] as? SelfAware.Type)?.awake()
-//        }
-//        types.deallocate()
         let _ = WisdomKeyboardKing.shared
     }
 }
@@ -43,10 +31,11 @@ class WisdomKeyboardKing: NSObject{
     fileprivate var responseView: UIView?
     
     fileprivate var transformSumY: CGFloat = 0
-    fileprivate let animateTime: TimeInterval = 0.2
+    fileprivate let animateTime: TimeInterval = 0.25
     fileprivate var keyboardFrame: CGRect = .zero
     
     fileprivate var formerTapGestures: [UITapGestureRecognizer]?
+    fileprivate var transform: CGAffineTransform?
     
     fileprivate lazy var currentTapGesture: UITapGestureRecognizer={
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapGesture(tap:)))
@@ -54,10 +43,6 @@ class WisdomKeyboardKing: NSObject{
     }()
     
     fileprivate static let shared = WisdomKeyboardKing()
-    
-//    internal static func awake() {
-//        let _ = WisdomKeyboardKing.shared
-//    }
     
     fileprivate override init() {
         super.init()
@@ -76,7 +61,7 @@ class WisdomKeyboardKing: NSObject{
     }
     
     /**
-     * Add customised Notification for third party customised TextField/TextView.
+     *  Add customised Notification for third party customised TextField/TextView.
      */
     fileprivate func registerTextFieldViewClass(textClass: AnyClass,
                                             didBeginEditingNotificationName: Notification.Name,
@@ -97,6 +82,9 @@ class WisdomKeyboardKing: NSObject{
                 if let VC = nextRes as? UIViewController{
                     if formerTapGestures == nil{
                         formerTapGestures = VC.view.gestureRecognizers as? [UITapGestureRecognizer]
+                    }
+                    if transform == nil{
+                        transform = VC.view.transform
                     }
                     VC.view.gestureRecognizers = nil
                     VC.view.addGestureRecognizer(currentTapGesture)
@@ -172,6 +160,8 @@ class WisdomKeyboardKing: NSObject{
 extension WisdomKeyboardKing {
     @objc fileprivate func textViewDidChange(noti: Notification) {
         if let textField = noti.object as? UITextField{
+            self.textFieldContentMode(textField: textField)
+            
             if textField.changeTask != nil{
                 let window = UIApplication.shared.delegate?.window!
                 let rect = textField.convert(textField.bounds, to: window)
@@ -208,17 +198,19 @@ extension WisdomKeyboardKing {
     
     @objc fileprivate func keyBoardWillHide(noti: Notification){
         UIView.animate(withDuration: animateTime, animations: {
-            self.transformView?.transform = CGAffineTransform.identity
+            self.transformView?.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
         }) { (_) in
             self.transformView?.gestureRecognizers = self.formerTapGestures
             self.keyboardType = .sleep
             self.formerTapGestures = nil
             self.transformView = nil
             self.responseView = nil
+            self.transform = nil
             self.transformSumY = 0
         }
     }
-    /*
+    
+    /**
      *  Keyboard status interactive processing
      */
     fileprivate func transformAction(responseMaY: CGFloat){
@@ -259,8 +251,51 @@ extension WisdomKeyboardKing {
                 keyboardType = .awakeNormal
                 
                 UIView.animate(withDuration: animateTime, animations: {
-                    self.transformView!.transform = CGAffineTransform.identity
+                    self.transformView?.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
                 })
+            }
+        }
+    }
+    
+    fileprivate func textFieldContentMode(textField: UITextField){
+        if textField.text == nil || textField.textContentMode == .normal{
+            return
+        }
+        let newStr = textField.text!.replacingOccurrences(of: " ", with: "")
+        if newStr.count == 0{
+            return
+        }
+        var length: Int = 0
+        var lengthSum: Int = 0
+        switch textField.textContentMode {
+        case .PhoneNumber11_3?:
+            length = 3
+            lengthSum = 11
+        case .PhoneNumber11_4?:
+            length = 4
+            lengthSum = 11
+        case .BankcardNumber16_4?:
+            length = 4
+            lengthSum = 16
+        case .BankcardNumber19_4?:
+            length = 4
+            lengthSum = 19
+        default : break
+        }
+        
+        if newStr.count > lengthSum {
+            let group = lengthSum / length
+            let index = textField.text!.index(textField.text!.startIndex, offsetBy:lengthSum+group)
+            let result = textField.text![textField.text!.startIndex..<index]
+            textField.text = String(result)
+            
+        }else if newStr.count > length && newStr.count % length == 1{
+            let startIndex = textField.text!.index(textField.text!.endIndex, offsetBy:-2)
+            let endIndex = textField.text!.index(startIndex, offsetBy:1)
+            let result = textField.text![startIndex..<endIndex]
+            if result != " "{
+                let index = textField.text!.index(before: textField.text!.endIndex)
+                textField.text!.insert(" ", at: index)
             }
         }
     }
