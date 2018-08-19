@@ -10,10 +10,17 @@ import UIKit
 
 class WisdomTextOutput: NSObject {
 
-    public static func textOutput(textString: String, type: UITextFieldTitleContentMode)->String{
+    public static func textOutput(textString: String, type: WisdomTextOutputMode)->String{
         if type == .normal{
             return textString
         }
+        
+        if String(textString.last!) == " "{
+            var string = textString
+            string.removeLast()
+            return string
+        }
+        
         let newStr = textString.replacingOccurrences(of: " ", with: "")
         if newStr.count == 0{
             return textString

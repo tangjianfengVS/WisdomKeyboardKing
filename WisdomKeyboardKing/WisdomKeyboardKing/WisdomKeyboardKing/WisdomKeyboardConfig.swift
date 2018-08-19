@@ -50,13 +50,22 @@ public enum WisdomTransformTargetType {
 }
 
 /**
- *  The content output display style
+ *  The content output display styleOutput
  */
-public enum UITextFieldTitleContentMode {
+public enum WisdomTextOutputMode {
     case normal
-    case PhoneNumber11_3    // The longest is 11, one serving three
-    case PhoneNumber11_4    // The longest is 11, one serving four
-    case BankcardNumber16_4 // The longest is 16, one portion for four
+    case PhoneNumber11_3    // The longest is 11, one serving 3
+    case PhoneNumber11_4    // The longest is 11, one serving 4
+    case BankcardNumber16_4 // The longest is 16, one portion for 4
     case BankcardNumber19_4 // The longest is 19, one portion for 4
+}
+
+
+public enum WisdomTextDidEditType {
+    case fallow           //休闲
+    case imports          //输入
+    case drawing          //绘画
+    case negotiate_1
+    case negotiate_2
 }
 

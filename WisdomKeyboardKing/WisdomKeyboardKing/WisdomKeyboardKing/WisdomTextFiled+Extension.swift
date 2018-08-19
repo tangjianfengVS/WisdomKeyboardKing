@@ -13,7 +13,7 @@ fileprivate var WisdomBetweenKeyboardKey_TextField = "WisdomBetweenKeyboardKey_T
 fileprivate var WisdomBeginTaskKey_TextField = "WisdomBeginTaskKey_TextField";
 fileprivate var WisdomChangeTaskKey_TextField = "WisdomChangeTaskKey_TextField";
 fileprivate var WisdomEndTaskKey_TextField = "WisdomEndTaskKey_TextField";
-fileprivate var WisdomContentModeKey_TextField = "WisdomContentModeKey_TextField";
+fileprivate var WisdomTextOutputModeKey_TextField = "WisdomTextOutputModeKey_TextField";
 
 extension UITextField {
     var wisdomTransformTarget: WisdomTransformTargetType{
@@ -76,15 +76,15 @@ extension UITextField {
         }
     }
     
-    var textContentMode: UITextFieldTitleContentMode?{
+    var textOutputMode: WisdomTextOutputMode?{
         get{
-            if let mode = objc_getAssociatedObject(self, &WisdomContentModeKey_TextField) as? UITextFieldTitleContentMode{
+            if let mode = objc_getAssociatedObject(self, &WisdomTextOutputModeKey_TextField) as? WisdomTextOutputMode{
                 return mode
             }
             return .normal
         }
         set(newValue){
-            objc_setAssociatedObject(self, &WisdomContentModeKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &WisdomTextOutputModeKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -92,6 +92,14 @@ extension UITextField {
         beginTask = beginTasks
         changeTask = beginTasks
         endTask = endTasks
+    }
+    
+    //if setting WisdomTextOutputMode, get value set UITextField text only
+    func outputText() -> String {
+        if textOutputMode == .normal {
+            return text != nil ? text!:""
+        }
+        return text!.replacingOccurrences(of: " ", with: "")
     }
 }
 

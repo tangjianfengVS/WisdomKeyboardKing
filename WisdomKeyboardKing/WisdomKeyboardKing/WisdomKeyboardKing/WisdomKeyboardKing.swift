@@ -200,6 +200,9 @@ extension WisdomKeyboardKing {
         UIView.animate(withDuration: animateTime, animations: {
             self.transformView?.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
         }) { (_) in
+            if let wisdom = self.responseView as? WisdomTextField{
+                wisdom.logout()
+            }
             self.transformView?.gestureRecognizers = self.formerTapGestures
             self.keyboardType = .sleep
             self.formerTapGestures = nil
@@ -261,7 +264,7 @@ extension WisdomKeyboardKing {
         if textField.text == nil {
             return
         }
-        textField.text! = WisdomTextOutput.textOutput(textString: textField.text!, type: textField.textContentMode!)
+        textField.text! = WisdomTextOutput.textOutput(textString: textField.text!, type: textField.textOutputMode!)
     }
     
     @objc fileprivate func tapGesture(tap: UITapGestureRecognizer) {

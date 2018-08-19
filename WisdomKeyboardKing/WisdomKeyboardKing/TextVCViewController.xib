@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextVCViewController" customModule="LongYuWarriors" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextVCViewController" customModule="WisdomKeyboardKing" customModuleProvider="target">
             <connections>
                 <outlet property="bottomField" destination="ibY-t9-VPw" id="Mff-X5-GUU"/>
                 <outlet property="bottomTextView" destination="wFH-nJ-h3f" id="nlZ-La-hEA"/>
@@ -31,7 +31,7 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="59j-QK-iab">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="59j-QK-iab" customClass="WisdomTextField" customModule="WisdomKeyboardKing" customModuleProvider="target">
                     <rect key="frame" x="62" y="395" width="250" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="lO9-ZM-IWQ"/>
