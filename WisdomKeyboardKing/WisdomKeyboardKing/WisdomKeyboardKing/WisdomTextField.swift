@@ -40,8 +40,8 @@ class WisdomTextField: UITextField {
     fileprivate var labList: [UILabel]=[]
     fileprivate lazy var animation: WisdomAnimation = WisdomAnimation()
     
-    fileprivate var wisdomRanges: [WisdomTextRange]=[]
-    var wisdomChars: [WisdomTextChars]=[]
+    fileprivate(set) var wisdomRanges: [WisdomTextRange]=[]
+    fileprivate(set) var wisdomChars: [WisdomTextChars]=[]
     
     fileprivate lazy var gestureView: UIView={
         let view = UIView()
@@ -131,6 +131,14 @@ class WisdomTextField: UITextField {
                     self?.becomeFirstResponder()
                 }
             }
+        }
+    }
+    
+    func changeWisdomChars(type: Int, chars: WisdomTextChars?){
+        if type == 0 {
+            wisdomChars.removeLast()
+        }else if (type == 1 && chars != nil){
+            wisdomChars.append(chars!)
         }
     }
     

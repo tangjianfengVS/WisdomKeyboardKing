@@ -13,6 +13,7 @@ import UIKit
  * Function 3: support switching input method to avoid
  * Function 4: support settable, control UITextField, UITextView's hiding distance from the keyboard
  * Function 5: enable the hiding of a large number of UITextField and UITextView on the same page
+ 
  * Function 6: UITextField, UITextView supports wisdomTask tasks：
                 beginTasks: a callback when invoking a keyboard
                changeTasks: a callback when changing text content
@@ -64,11 +65,11 @@ public enum WisdomTextOutputMode {
  *  WisdomTextField： Edit keyboard status
  */
 public enum WisdomTextDidEditType {
-    case fallow              //leisure
-    case imports             //input
-    case drawing_negotiate_1 //One finished painting
-    case drawing_negotiate_2 //Two finished paintings
-    case drag_negotiate_1    //Current drag editor for the first
-    case drag_negotiate_2    //Current drag editor for the second
+    case fallow              // leisure
+    case imports             // input
+    case drawing_negotiate_1 // One finished painting
+    case drawing_negotiate_2 // Two finished paintings
+    case drag_negotiate_1    // Current drag editor for the first
+    case drag_negotiate_2    // Current drag editor for the second
 }
 

@@ -72,13 +72,13 @@ class WisdomTextOutput: NSObject {
         }
         
         if (wisdomText.text?.count)! < wisdomText.wisdomChars.count {
-            wisdomText.wisdomChars.removeLast()
+            wisdomText.changeWisdomChars(type: 0, chars: nil)
             
         }else if wisdomText.text?.count == 1 {
             let str = String((wisdomText.text?.last)!)
             let maxX = textSize(text: wisdomText.text!, font: wisdomText.font!)
             let chars = WisdomTextChars(minX: 0, maxX: maxX, text: str)
-            wisdomText.wisdomChars.append(chars)
+            wisdomText.changeWisdomChars(type: 1, chars: chars)
             
         }else if (wisdomText.text?.count)! > 1{
             let str = String(wisdomText.text!.last!)
@@ -89,7 +89,7 @@ class WisdomTextOutput: NSObject {
             let maxX = textSize(text: wisdomText.text!, font: wisdomText.font!)
             
             let chars = WisdomTextChars(minX: minX, maxX: maxX, text: str)
-            wisdomText.wisdomChars.append(chars)
+            wisdomText.changeWisdomChars(type: 1, chars: chars)
         }
     }
 }
