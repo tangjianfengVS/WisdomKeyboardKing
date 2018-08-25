@@ -160,6 +160,7 @@ class WisdomKeyboardKing: NSObject{
 extension WisdomKeyboardKing {
     @objc fileprivate func textViewDidChange(noti: Notification) {
         if let textField = noti.object as? UITextField{
+            
             self.textFieldContentMode(textField: textField)
             
             if textField.changeTask != nil{
@@ -259,15 +260,22 @@ extension WisdomKeyboardKing {
             }
         }
     }
+}
+
+extension WisdomKeyboardKing {
+    @objc fileprivate func tapGesture(tap: UITapGestureRecognizer) {
+        transformView?.endEditing(true)
+    }
     
     fileprivate func textFieldContentMode(textField: UITextField){
         if textField.text == nil {
             return
         }
+        
+        if let wisdomText = textField as? WisdomTextField {
+            WisdomTextOutput.recordWisdomChange(wisdomText: wisdomText)
+        }
+        
         textField.text! = WisdomTextOutput.textOutput(textString: textField.text!, type: textField.textOutputMode!)
-    }
-    
-    @objc fileprivate func tapGesture(tap: UITapGestureRecognizer) {
-        transformView?.endEditing(true)
     }
 }

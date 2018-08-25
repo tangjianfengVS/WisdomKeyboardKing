@@ -60,12 +60,15 @@ public enum WisdomTextOutputMode {
     case BankcardNumber19_4 // The longest is 19, one portion for 4
 }
 
-
+/**
+ *  WisdomTextField： Edit keyboard status
+ */
 public enum WisdomTextDidEditType {
-    case fallow           //休闲
-    case imports          //输入
-    case drawing          //绘画
-    case negotiate_1
-    case negotiate_2
+    case fallow              //leisure
+    case imports             //input
+    case drawing_negotiate_1 //One finished painting
+    case drawing_negotiate_2 //Two finished paintings
+    case drag_negotiate_1    //Current drag editor for the first
+    case drag_negotiate_2    //Current drag editor for the second
 }
 

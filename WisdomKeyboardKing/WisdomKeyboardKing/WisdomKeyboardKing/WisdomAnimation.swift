@@ -61,32 +61,32 @@ class WisdomAnimation: NSObject {
 extension WisdomAnimation{
     func merge(master: UIView, labList: [UILabel], editType: WisdomTextDidEditType) {
         
-        if editType == .negotiate_1 {
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                labList.last!.transform = CGAffineTransform(translationX: -master.bounds.width, y: 0)
-            }) { (_) in
-                
-            }
-        }else if editType == .negotiate_2{
-            
-            
-        }
+//        if editType == .negotiate_1 {
+//
+//            UIView.animate(withDuration: 0.2, animations: {
+//                labList.last!.transform = CGAffineTransform(translationX: -master.bounds.width, y: 0)
+//            }) { (_) in
+//
+//            }
+//        }else if editType == .negotiate_2{
+//
+//
+//        }
     }
     
     func reset(master: UIView, labList: [UILabel], editType: WisdomTextDidEditType) {
-        if editType == .negotiate_1 {
-            
+//        if editType == .negotiate_1 {
+//
             UIView.animate(withDuration: 0.2, animations: {
                 master.transform = CGAffineTransform.identity
-                labList.last?.transform = CGAffineTransform.identity
+                //labList.last?.transform = CGAffineTransform.identity
             }) { (_) in
-                
+
             }
-        }else if editType == .negotiate_2{
-            
-            
-        }
+//        }else if editType == .negotiate_2{
+//
+//
+//        }
     }
     
     //Delete the request
@@ -106,17 +106,17 @@ extension WisdomAnimation{
     func delete(master: UIView, labList: [UILabel], editType: WisdomTextDidEditType) ->
         (String,[UILabel],WisdomTextDidEditType){
             
-        master.removeFromSuperview()
-        if editType == .negotiate_1 {
-            for lab in labList{
-                lab.removeFromSuperview()
-            }
-            master.transform = CGAffineTransform.identity
-            return ((labList.first?.text)! + labList[1].text!, [], .fallow)
-        }else if editType == .negotiate_2{
-            
-            return ((labList.first?.text)! + labList[1].text!, labList, .negotiate_1)
-        }
+//        master.removeFromSuperview()
+//        if editType == .negotiate_1 {
+//            for lab in labList{
+//                lab.removeFromSuperview()
+//            }
+//            master.transform = CGAffineTransform.identity
+//            return ((labList.first?.text)! + labList[1].text!, [], .fallow)
+//        }else if editType == .negotiate_2{
+//            
+//            return ((labList.first?.text)! + labList[1].text!, labList, .negotiate_1)
+//        }
         return ("", [],.fallow)
     }
     

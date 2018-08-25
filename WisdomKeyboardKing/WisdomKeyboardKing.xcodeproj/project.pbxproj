@@ -161,13 +161,13 @@
 		A5C450B02120636F00AC29C9 /* WisdomKeyboardKing */ = {
 			isa = PBXGroup;
 			children = (
-				A5C450B12120636F00AC29C9 /* WisdomTextFiled+Extension.swift */,
-				A5C450B22120636F00AC29C9 /* WisdomTextView+Extension.swift */,
 				A5C450B32120636F00AC29C9 /* WisdomKeyboardConfig.swift */,
 				A5C450B42120636F00AC29C9 /* WisdomKeyboardKing.swift */,
-				A5C899B72127164900031CDD /* WisdomTextOutput.swift */,
 				A5DD5DA421285E9800C99E0E /* WisdomTextField.swift */,
+				A5C899B72127164900031CDD /* WisdomTextOutput.swift */,
 				A5C471FF2129635E008A94B6 /* WisdomAnimation.swift */,
+				A5C450B12120636F00AC29C9 /* WisdomTextFiled+Extension.swift */,
+				A5C450B22120636F00AC29C9 /* WisdomTextView+Extension.swift */,
 			);
 			path = WisdomKeyboardKing;
 			sourceTree = "<group>";
