@@ -117,8 +117,8 @@ class WisdomTextOutput: NSObject {
                 let dateInt:Int = Int(dateStamp)
                 currentTime = String(dateInt)
             }
-            currentTime = WisdomTextOutput.getTimestampToStr(time: Int(currentTime)!, format: format)
-            targetTime = WisdomTextOutput.getTimestampToStr(time: Int(targetTime)!, format: format)
+            currentTime = WisdomTextOutput.getTimetampToStr(time: Int(currentTime)!, format: format)
+            targetTime = WisdomTextOutput.getTimetampToStr(time: Int(targetTime)!, format: format)
         case .input_joint, .input_N_Y_R_joint:
             format.dateFormat = type == .input_joint ? "yyyy-MM-dd HH:mm":"yyyy年MM月dd日 HH:mm"
             
@@ -155,8 +155,8 @@ class WisdomTextOutput: NSObject {
                 let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
                 let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
                 var h = String(targetHMNew[startIndex..<endIndex])
-                h = Int(h)! >= 10 ? h + "点":String(h.last!) + "点"
-                return (true,"今天" + h + "过期")
+                h = Int(h)! >= 10 ? h+"点":String(h.last!) + "点"
+                return (true,"今天"+h+"过期")
             }
             return (true,targetN+"年"+targetY+"月"+targetR+"日")
         }
@@ -180,7 +180,7 @@ class WisdomTextOutput: NSObject {
 
 extension WisdomTextOutput{
     //时间戳转时间String
-    class fileprivate func getTimestampToStr(time: Int ,format: DateFormatter)-> String{
+    class func getTimetampToStr(time: Int ,format: DateFormatter)-> String{
         let timeInterval: TimeInterval = TimeInterval(time)
         let date = Date(timeIntervalSince1970: timeInterval)
         return format.string(from: date).replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
