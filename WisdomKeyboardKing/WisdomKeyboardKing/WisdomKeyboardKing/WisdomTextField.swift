@@ -61,7 +61,7 @@ class WisdomTextField: UITextField {
         let lab = UILabel()
         lab.isUserInteractionEnabled = true
         lab.layer.borderWidth = 0.8
-        lab.layer.borderColor = UIColor.green.cgColor
+        lab.layer.borderColor = UIColor.blue.cgColor
         lab.addGestureRecognizer(panRightGesture)
         return lab
     }()
@@ -115,11 +115,9 @@ class WisdomTextField: UITextField {
         if gestureView.subviews.contains(drawView) {
             return
         }
-        
         if (editType == .fallow ) {
             becomeFirstResponder()
         }else if (editType == .drawing_negotiate_1 || editType == .drawing_negotiate_2 ) {
-            
             animation.deleteShow(title: "删除") {[weak self] (res) in
                 if res{
                     self?.cancel()
@@ -183,7 +181,6 @@ extension WisdomTextField {
             location = point
         case .ended:
             if -pan.view!.frame.midY >= pan.view!.bounds.height || pan.view!.frame.midY-8 >= pan.view!.bounds.height{
-                
                 animation.deleteShow(title: "删除") {[weak self] (res) in
                     if res{
                         self?.removeStr(panView: pan.view!)
@@ -270,7 +267,7 @@ extension WisdomTextField {
 }
 
 extension WisdomTextField{
-    //动态建视图
+    //Dynamic view
     fileprivate func draw(endMaxX: CGFloat) {
         if endMaxX - beginMinX < 2{
             return
@@ -284,7 +281,7 @@ extension WisdomTextField{
         drawView.frame = rect
     }
     
-    //分割字符
+    //Character segmentation
     fileprivate func creatTextRang(rect: CGRect) -> Bool{
         let minX: CGFloat = rect.minX-7
         let maxX: CGFloat = rect.maxX-7
@@ -315,7 +312,7 @@ extension WisdomTextField{
         }
     }
     
-    //设置富文本
+    //division
     fileprivate func division(){
         let attrStr = NSMutableAttributedString.init(string: text!)
         
@@ -326,7 +323,7 @@ extension WisdomTextField{
         attributedText = attrStr
     }
     
-    //创建Label
+    //creation
     fileprivate func creation(){
         for i in 0..<wisdomRanges.count {
             if i == 0{
@@ -355,7 +352,7 @@ extension WisdomTextField{
 }
 
 extension WisdomTextField{
-    //删除
+    //remove
     func removeStr(panView: UIView) {
         var index: Int=0
         if panView == gestureLeftLab {

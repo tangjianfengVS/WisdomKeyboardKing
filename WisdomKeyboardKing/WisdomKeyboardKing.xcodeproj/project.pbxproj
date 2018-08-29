@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A5B9DD0B213130A1007EDBC1 /* WisdomEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B9DD0A213130A1007EDBC1 /* WisdomEffectView.swift */; };
 		A5C4509B21205C9500AC29C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C4509A21205C9500AC29C9 /* AppDelegate.swift */; };
 		A5C4509D21205C9500AC29C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C4509C21205C9500AC29C9 /* ViewController.swift */; };
 		A5C450A021205C9500AC29C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5C4509E21205C9500AC29C9 /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A5B9DD0A213130A1007EDBC1 /* WisdomEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomEffectView.swift; sourceTree = "<group>"; };
 		A5C4509721205C9500AC29C9 /* WisdomKeyboardKing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomKeyboardKing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C4509A21205C9500AC29C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5C4509C21205C9500AC29C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				A5DD5DA421285E9800C99E0E /* WisdomTextField.swift */,
 				A5C899B72127164900031CDD /* WisdomTextOutput.swift */,
 				A5C471FF2129635E008A94B6 /* WisdomAnimation.swift */,
+				A5B9DD0A213130A1007EDBC1 /* WisdomEffectView.swift */,
 				A5C450B12120636F00AC29C9 /* WisdomTextFiled+Extension.swift */,
 				A5C450B22120636F00AC29C9 /* WisdomTextView+Extension.swift */,
 			);
@@ -341,6 +344,7 @@
 				A5C4509B21205C9500AC29C9 /* AppDelegate.swift in Sources */,
 				A5DD5DCF21286AB500C99E0E /* ConstraintDescription.swift in Sources */,
 				A5DD5DE721286AB500C99E0E /* ConstraintItem.swift in Sources */,
+				A5B9DD0B213130A1007EDBC1 /* WisdomEffectView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

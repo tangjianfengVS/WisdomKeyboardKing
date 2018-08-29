@@ -9,53 +9,16 @@
 import UIKit
 
 class WisdomAnimation: NSObject {
-    fileprivate var clousres: ((Bool)->())?
-    
-    fileprivate lazy var showView: UIView={
-        let view = UIView()
-        view.backgroundColor = UIColor.clear
-        view.addSubview(verifyBtn)
-        view.addSubview(cancelBtn)
-        
-        verifyBtn.snp.makeConstraints({ (make) in
-            make.centerY.equalTo(view)
-            make.left.equalTo(view).offset(UIScreen.main.bounds.width/2+20)
-            make.width.height.equalTo(60)
-        })
-        cancelBtn.snp.makeConstraints({ (make) in
-            make.centerY.equalTo(view)
-            make.right.equalTo(view).offset(-UIScreen.main.bounds.width/2-20)
-            make.width.height.equalTo(60)
-        })
-        return view
-    }()
-    
-    fileprivate lazy var verifyBtn: UIButton={
-        let btn = UIButton()
-        btn.backgroundColor = UIColor.red
-        btn.addTarget(self, action: #selector(clickButton(btn:)), for: .touchUpInside)
-        return btn
-    }()
-    
-    fileprivate lazy var cancelBtn: UIButton={
-        let btn = UIButton()
-        btn.addTarget(self, action: #selector(clickButton(btn:)), for: .touchUpInside)
-        btn.backgroundColor = UIColor.blue
-        return btn
-    }()
-    
-    @objc private func clickButton(btn: UIButton){
-        showView.removeFromSuperview()
-        if btn == verifyBtn{
-            if clousres != nil{
-                clousres!(true)
-            }
-        }else if btn == cancelBtn {
-            if clousres != nil{
-                clousres!(false)
-            }
-        }
+    //Delete the request
+    func deleteShow(title: String, clousre: @escaping (Bool)->()){
+        WisdomEffectView.showChoose(clousre: clousre)
     }
+    
+    
+    
+    
+    
+    
 }
 
 extension WisdomAnimation{
@@ -89,19 +52,7 @@ extension WisdomAnimation{
 //        }
     }
     
-    //Delete the request
-    func deleteShow(title: String, clousre: @escaping (Bool)->()){
-        clousres = clousre
-        let window = UIApplication.shared.windows.last
-        if (window?.subviews.contains(showView))! {
-            return
-        }
-        window?.addSubview(showView)
-        
-        showView.snp.makeConstraints { (make) in
-            make.edges.equalTo(window!)
-        }
-    }
+    
     
     func delete(master: UIView, labList: [UILabel], editType: WisdomTextDidEditType) ->
         (String,[UILabel],WisdomTextDidEditType){

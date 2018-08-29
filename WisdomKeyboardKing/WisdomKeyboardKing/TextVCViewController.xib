@@ -22,6 +22,9 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snip20180825_1" translatesAutoresizingMaskIntoConstraints="NO" id="9aw-mT-c9c">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                </imageView>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ibY-t9-VPw">
                     <rect key="frame" x="63" y="583" width="250" height="30"/>
                     <constraints>
@@ -79,12 +82,15 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+            <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="7tI-5F-kW9" firstAttribute="height" secondItem="wFH-nJ-h3f" secondAttribute="height" id="0BQ-Po-dv4"/>
                 <constraint firstItem="P4S-J9-Evx" firstAttribute="centerX" secondItem="ove-IS-gwR" secondAttribute="centerX" id="2wz-pe-1Xe"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9aw-mT-c9c" secondAttribute="trailing" id="Afa-EW-5dA"/>
                 <constraint firstItem="ibY-t9-VPw" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Ayi-1E-xJD"/>
+                <constraint firstItem="9aw-mT-c9c" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Bx2-TY-9JR"/>
                 <constraint firstItem="59j-QK-iab" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="CMB-T8-Say"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9aw-mT-c9c" secondAttribute="bottom" id="DT1-9k-H37"/>
                 <constraint firstItem="wFH-nJ-h3f" firstAttribute="top" secondItem="7tI-5F-kW9" secondAttribute="bottom" constant="18" id="Erl-Mn-YWr"/>
                 <constraint firstItem="wFH-nJ-h3f" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="I7u-qd-75o"/>
                 <constraint firstItem="ibY-t9-VPw" firstAttribute="top" secondItem="wFH-nJ-h3f" secondAttribute="bottom" constant="20" id="JOg-rD-ZZW"/>
@@ -93,10 +99,14 @@
                 <constraint firstItem="7tI-5F-kW9" firstAttribute="centerX" secondItem="59j-QK-iab" secondAttribute="centerX" id="ROn-Qb-pDE"/>
                 <constraint firstItem="ove-IS-gwR" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="aPs-Sl-z95"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ibY-t9-VPw" secondAttribute="bottom" constant="54" id="e9Z-q8-aoo"/>
+                <constraint firstItem="9aw-mT-c9c" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="fJU-hm-rf1"/>
                 <constraint firstItem="ove-IS-gwR" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="uPj-e8-IbM"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="Snip20180825_1" width="560" height="862"/>
+    </resources>
 </document>

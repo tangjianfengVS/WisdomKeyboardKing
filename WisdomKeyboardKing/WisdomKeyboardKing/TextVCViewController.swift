@@ -32,6 +32,8 @@ class TextVCViewController: UIViewController {
             //print(view,title,rect)
         }
         
+        WisdomTextOutput.expiredTimeOutput(timesText: "1535557797", serverTimesText: nil, type: .timestamp)
+        
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(click)))
     }
     

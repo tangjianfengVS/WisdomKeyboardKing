@@ -275,7 +275,7 @@ extension WisdomKeyboardKing {
         if let wisdomText = textField as? WisdomTextField {
             WisdomTextOutput.recordWisdomChange(wisdomText: wisdomText)
         }
-        
+
         textField.text! = WisdomTextOutput.textOutput(textString: textField.text!, type: textField.textOutputMode!)
     }
 }

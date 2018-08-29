@@ -4,6 +4,8 @@
 //
 //  Created by jianfeng on 2018/8/6.
 //  Copyright © 2018年 AllOverTheSkyStar. All rights reserved.
+//  https://github.com/tangjianfengVS/WisdomKeyboardKing
+
 
 import UIKit
 /**
@@ -73,3 +75,11 @@ public enum WisdomTextDidEditType {
     case drag_negotiate_2    // Current drag editor for the second
 }
 
+/**
+ *  Time display format conversion type
+ */
+public enum WisdomInputTimeConvertType {
+    case timestamp           //时间戳
+    case input_joint         //"-"拼接
+    case input_N_Y_R_joint   //"年，月，日"拼接
+}
