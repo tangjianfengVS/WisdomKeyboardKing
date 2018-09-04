@@ -12,9 +12,6 @@ class WisdomTextOutput: NSObject {
 
     //WisdomTextOutputMode: Handles keyboard partitioning characters and bits
     public static func textOutput(textString: String, type: WisdomTextOutputMode)->String{
-        if type == .normal{
-            return textString
-        }
         if String(textString.last!) == " "{
             var string = textString
             string.removeLast()
@@ -60,36 +57,6 @@ class WisdomTextOutput: NSObject {
             }
         }
         return textString
-    }
-    
-    //WisdomTextField: Record the current input character position and content
-    static func recordWisdomChange(wisdomText: WisdomTextField){
-        
-        func textSize(text : String , font : UIFont) -> CGFloat{
-            let textMaxSize = CGSize(width: CGFloat(MAXFLOAT), height: 50)
-            return text.boundingRect(with: textMaxSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedStringKey.font : font], context: nil).size.width
-        }
-        
-        if (wisdomText.text?.count)! < wisdomText.wisdomChars.count {
-            wisdomText.changeWisdomChars(type: 0, chars: nil)
-            
-        }else if wisdomText.text?.count == 1 {
-            let str = String((wisdomText.text?.last)!)
-            let maxX = textSize(text: wisdomText.text!, font: wisdomText.font!)
-            let chars = WisdomTextChars(minX: 0, maxX: maxX, text: str)
-            wisdomText.changeWisdomChars(type: 1, chars: chars)
-            
-        }else if (wisdomText.text?.count)! > 1{
-            let str = String(wisdomText.text!.last!)
-            var newStr = wisdomText.text!
-            newStr.removeLast()
-            
-            let minX = textSize(text: newStr, font: wisdomText.font!)
-            let maxX = textSize(text: wisdomText.text!, font: wisdomText.font!)
-            
-            let chars = WisdomTextChars(minX: minX, maxX: maxX, text: str)
-            wisdomText.changeWisdomChars(type: 1, chars: chars)
-        }
     }
     
     /**  Expiration time filter： 输出格式样式
@@ -155,7 +122,7 @@ class WisdomTextOutput: NSObject {
                 let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
                 let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
                 var h = String(targetHMNew[startIndex..<endIndex])
-                h = Int(h)! >= 10 ? h+"点":String(h.last!) + "点"
+                h = Int(h)! >= 10 ? h+"点":String(h.last!)+"点"
                 return (true,"今天"+h+"过期")
             }
             return (true,targetN+"年"+targetY+"月"+targetR+"日")

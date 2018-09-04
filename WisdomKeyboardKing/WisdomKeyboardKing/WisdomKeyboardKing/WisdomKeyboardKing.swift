@@ -161,7 +161,7 @@ extension WisdomKeyboardKing {
     @objc fileprivate func textViewDidChange(noti: Notification) {
         if let textField = noti.object as? UITextField{
             
-            self.textFieldContentMode(textField: textField)
+            textFieldContentMode(textField: textField)
             
             if textField.changeTask != nil{
                 let window = UIApplication.shared.delegate?.window!
@@ -201,9 +201,6 @@ extension WisdomKeyboardKing {
         UIView.animate(withDuration: animateTime, animations: {
             self.transformView?.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
         }) { (_) in
-            if let wisdom = self.responseView as? WisdomTextField{
-                wisdom.logout()
-            }
             self.transformView?.gestureRecognizers = self.formerTapGestures
             self.keyboardType = .sleep
             self.formerTapGestures = nil
@@ -268,14 +265,10 @@ extension WisdomKeyboardKing {
     }
     
     fileprivate func textFieldContentMode(textField: UITextField){
-        if textField.text == nil {
+        if textField.text == nil || textField.text == "" ||
+           textField.textOutputMode! == .normal{
             return
         }
-        
-        if let wisdomText = textField as? WisdomTextField {
-            WisdomTextOutput.recordWisdomChange(wisdomText: wisdomText)
-        }
-
         textField.text! = WisdomTextOutput.textOutput(textString: textField.text!, type: textField.textOutputMode!)
     }
 }

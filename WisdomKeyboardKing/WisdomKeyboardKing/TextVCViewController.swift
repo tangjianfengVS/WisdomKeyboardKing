@@ -41,7 +41,7 @@ class TextVCViewController: UIViewController {
         super.viewWillAppear(animated)
         
         UIView.animate(withDuration: 0.5) {
-            self.view.transform = CGAffineTransform(translationX: 0, y: -60)
+            self.view.transform = CGAffineTransform(translationX: 0, y: -50)
         }
     }
 

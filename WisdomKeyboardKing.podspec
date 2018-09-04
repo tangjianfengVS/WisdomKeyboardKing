@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "WisdomKeyboardKing"
-  s.version      = "0.2.0"
+  s.version      = "0.2.1"
   s.summary      = "A short description of WisdomKeyboardKing."
   s.description  = "Keyboard housekeeper"
 
@@ -18,5 +18,4 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/tangjianfengVS/WisdomKeyboardKing.git", :tag => s.version }
 
   s.source_files  = "WisdomKeyboardKing/WisdomKeyboardKing/WisdomKeyboardKing/*.swift"
-  s.dependency "SnapKit"
 end

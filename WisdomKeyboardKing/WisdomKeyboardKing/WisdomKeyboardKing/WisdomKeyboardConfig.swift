@@ -20,6 +20,9 @@ import UIKit
                 beginTasks: a callback when invoking a keyboard
                changeTasks: a callback when changing text content
                   endTasks: a callback when the keyboard is closed or the appropriate object is replaced
+ 
+ * Function 7: Process input expiration time display
+         test: 今天12点过期   明天过期    后天过期   2018年08月11日(已经过期显示)
  */
 
 
@@ -57,22 +60,10 @@ public enum WisdomTransformTargetType {
  */
 public enum WisdomTextOutputMode {
     case normal
-    case PhoneNumber11_3    // The longest is 11, one serving 3
-    case PhoneNumber11_4    // The longest is 11, one serving 4
-    case BankcardNumber16_4 // The longest is 16, one portion for 4
-    case BankcardNumber19_4 // The longest is 19, one portion for 4
-}
-
-/**
- *  WisdomTextField： Edit keyboard status
- */
-public enum WisdomTextDidEditType {
-    case fallow              // leisure
-    case imports             // input
-    case drawing_negotiate_1 // One finished painting
-    case drawing_negotiate_2 // Two finished paintings
-    case drag_negotiate_1    // Current drag editor for the first
-    case drag_negotiate_2    // Current drag editor for the second
+    case PhoneNumber11_3     // The longest is 11, one serving 3
+    case PhoneNumber11_4     // The longest is 11, one serving 4
+    case BankcardNumber16_4  // The longest is 16, one portion for 4
+    case BankcardNumber19_4  // The longest is 19, one portion for 4
 }
 
 /**

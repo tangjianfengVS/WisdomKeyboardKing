@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A5B9DD0B213130A1007EDBC1 /* WisdomEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B9DD0A213130A1007EDBC1 /* WisdomEffectView.swift */; };
 		A5C4509B21205C9500AC29C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C4509A21205C9500AC29C9 /* AppDelegate.swift */; };
 		A5C4509D21205C9500AC29C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C4509C21205C9500AC29C9 /* ViewController.swift */; };
 		A5C450A021205C9500AC29C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5C4509E21205C9500AC29C9 /* Main.storyboard */; };
@@ -19,9 +18,7 @@
 		A5C450B62120636F00AC29C9 /* WisdomTextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C450B22120636F00AC29C9 /* WisdomTextView+Extension.swift */; };
 		A5C450B72120636F00AC29C9 /* WisdomKeyboardConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C450B32120636F00AC29C9 /* WisdomKeyboardConfig.swift */; };
 		A5C450B82120636F00AC29C9 /* WisdomKeyboardKing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C450B42120636F00AC29C9 /* WisdomKeyboardKing.swift */; };
-		A5C472002129635E008A94B6 /* WisdomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C471FF2129635E008A94B6 /* WisdomAnimation.swift */; };
 		A5C899B82127164900031CDD /* WisdomTextOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C899B72127164900031CDD /* WisdomTextOutput.swift */; };
-		A5DD5DA521285E9800C99E0E /* WisdomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD5DA421285E9800C99E0E /* WisdomTextField.swift */; };
 		A5DD5DCC21286AB500C99E0E /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A5DD5DA721286AB500C99E0E /* LICENSE */; };
 		A5DD5DCD21286AB500C99E0E /* ConstraintMultiplierTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD5DA921286AB500C99E0E /* ConstraintMultiplierTarget.swift */; };
 		A5DD5DCE21286AB500C99E0E /* LayoutConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD5DAA21286AB500C99E0E /* LayoutConstraintItem.swift */; };
@@ -61,7 +58,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A5B9DD0A213130A1007EDBC1 /* WisdomEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomEffectView.swift; sourceTree = "<group>"; };
 		A5C4509721205C9500AC29C9 /* WisdomKeyboardKing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomKeyboardKing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C4509A21205C9500AC29C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5C4509C21205C9500AC29C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -75,9 +71,7 @@
 		A5C450B22120636F00AC29C9 /* WisdomTextView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WisdomTextView+Extension.swift"; sourceTree = "<group>"; };
 		A5C450B32120636F00AC29C9 /* WisdomKeyboardConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WisdomKeyboardConfig.swift; sourceTree = "<group>"; };
 		A5C450B42120636F00AC29C9 /* WisdomKeyboardKing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WisdomKeyboardKing.swift; sourceTree = "<group>"; };
-		A5C471FF2129635E008A94B6 /* WisdomAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomAnimation.swift; sourceTree = "<group>"; };
 		A5C899B72127164900031CDD /* WisdomTextOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomTextOutput.swift; sourceTree = "<group>"; };
-		A5DD5DA421285E9800C99E0E /* WisdomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomTextField.swift; sourceTree = "<group>"; };
 		A5DD5DA721286AB500C99E0E /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A5DD5DA921286AB500C99E0E /* ConstraintMultiplierTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMultiplierTarget.swift; sourceTree = "<group>"; };
 		A5DD5DAA21286AB500C99E0E /* LayoutConstraintItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraintItem.swift; sourceTree = "<group>"; };
@@ -165,10 +159,7 @@
 			children = (
 				A5C450B32120636F00AC29C9 /* WisdomKeyboardConfig.swift */,
 				A5C450B42120636F00AC29C9 /* WisdomKeyboardKing.swift */,
-				A5DD5DA421285E9800C99E0E /* WisdomTextField.swift */,
 				A5C899B72127164900031CDD /* WisdomTextOutput.swift */,
-				A5C471FF2129635E008A94B6 /* WisdomAnimation.swift */,
-				A5B9DD0A213130A1007EDBC1 /* WisdomEffectView.swift */,
 				A5C450B12120636F00AC29C9 /* WisdomTextFiled+Extension.swift */,
 				A5C450B22120636F00AC29C9 /* WisdomTextView+Extension.swift */,
 			);
@@ -315,7 +306,6 @@
 				A5C899B82127164900031CDD /* WisdomTextOutput.swift in Sources */,
 				A5DD5DE121286AB500C99E0E /* ConstraintOffsetTarget.swift in Sources */,
 				A5DD5DED21286AB500C99E0E /* ConstraintLayoutSupportDSL.swift in Sources */,
-				A5C472002129635E008A94B6 /* WisdomAnimation.swift in Sources */,
 				A5DD5DD821286AB500C99E0E /* ConstraintPriority.swift in Sources */,
 				A5DD5DE421286AB500C99E0E /* ConstraintRelation.swift in Sources */,
 				A5DD5DE921286AB500C99E0E /* Debugging.swift in Sources */,
@@ -335,7 +325,6 @@
 				A5DD5DE821286AB500C99E0E /* Constraint.swift in Sources */,
 				A5DD5DE521286AB500C99E0E /* ConstraintLayoutGuideDSL.swift in Sources */,
 				A5DD5DDE21286AB500C99E0E /* ConstraintLayoutSupport.swift in Sources */,
-				A5DD5DA521285E9800C99E0E /* WisdomTextField.swift in Sources */,
 				A5DD5DEE21286AB500C99E0E /* ConstraintMakerRelatable.swift in Sources */,
 				A5DD5DD221286AB500C99E0E /* ConstraintViewDSL.swift in Sources */,
 				A5DD5DDC21286AB500C99E0E /* ConstraintView.swift in Sources */,
@@ -344,7 +333,6 @@
 				A5C4509B21205C9500AC29C9 /* AppDelegate.swift in Sources */,
 				A5DD5DCF21286AB500C99E0E /* ConstraintDescription.swift in Sources */,
 				A5DD5DE721286AB500C99E0E /* ConstraintItem.swift in Sources */,
-				A5B9DD0B213130A1007EDBC1 /* WisdomEffectView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +477,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HFM99A4RBU;
 				INFOPLIST_FILE = WisdomKeyboardKing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -507,6 +496,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HFM99A4RBU;
 				INFOPLIST_FILE = WisdomKeyboardKing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

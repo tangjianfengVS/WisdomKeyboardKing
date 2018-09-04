@@ -34,10 +34,11 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="59j-QK-iab" customClass="WisdomTextField" customModule="WisdomKeyboardKing" customModuleProvider="target">
-                    <rect key="frame" x="62" y="395" width="250" height="30"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="59j-QK-iab">
+                    <rect key="frame" x="62" y="385" width="250" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="lO9-ZM-IWQ"/>
+                        <constraint firstAttribute="height" constant="40" id="nyg-i6-9iG"/>
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
