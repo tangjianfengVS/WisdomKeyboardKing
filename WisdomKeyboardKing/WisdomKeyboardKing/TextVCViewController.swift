@@ -9,12 +9,21 @@
 import UIKit
 
 class TextVCViewController: UIViewController {
+    @IBOutlet weak var topField: UITextField!
     @IBOutlet weak var bottomField: UITextField!
     @IBOutlet weak var bottomTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomField.textOutputMode = .BankcardNumber19_4
+        
+        topField.wisdomTask(beginTasks: { (view, title, rect) in
+            //print(view,title,rect)
+        }, changeTasks: { (view, title, rect) in
+            //print(view,title,rect)
+        }) { (view, title, rect) in
+            //print(view,title,rect)
+        }
 
         bottomField.wisdomTask(beginTasks: { (view, title, rect) in
             //print(view,title,rect)
@@ -32,7 +41,7 @@ class TextVCViewController: UIViewController {
             //print(view,title,rect)
         }
         
-        WisdomTextOutput.expiredTimeOutput(timesText: "1535557797", serverTimesText: nil, type: .timestamp)
+        //WisdomTextOutput.expiredTimeOutput(timesText: "1535557797", serverTimesText: nil, type: .timestamp)
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(click)))
     }

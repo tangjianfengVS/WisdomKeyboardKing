@@ -67,7 +67,8 @@ public enum WisdomTextOutputMode {
 }
 
 /**
- *  Time display format conversion type
+ *  Time Raw data types for time processing
+    时间处理的原始数据类型
  */
 public enum WisdomInputTimeConvertType {
     case timestamp           //时间戳

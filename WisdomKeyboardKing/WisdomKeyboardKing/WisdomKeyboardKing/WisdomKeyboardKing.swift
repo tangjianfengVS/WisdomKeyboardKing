@@ -159,17 +159,17 @@ class WisdomKeyboardKing: NSObject{
 
 extension WisdomKeyboardKing {
     @objc fileprivate func textViewDidChange(noti: Notification) {
+        
         if let textField = noti.object as? UITextField{
-            
             textFieldContentMode(textField: textField)
             
-            if textField.changeTask != nil{
+            if textField.changeTask != nil {
                 let window = UIApplication.shared.delegate?.window!
                 let rect = textField.convert(textField.bounds, to: window)
                 textField.changeTask!(transformView,textField.text,rect)
             }
         }else if let textView = noti.object as? UITextView{
-            if textView.changeTask != nil{
+            if textView.changeTask != nil {
                 let window = UIApplication.shared.delegate?.window!
                 let rect = textView.convert(textView.bounds, to: window)
                 textView.changeTask!(transformView,textView.text,rect)

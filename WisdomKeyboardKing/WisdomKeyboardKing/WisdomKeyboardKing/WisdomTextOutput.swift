@@ -10,7 +10,7 @@ import UIKit
 
 class WisdomTextOutput: NSObject {
 
-    //WisdomTextOutputMode: Handles keyboard partitioning characters and bits
+    //MARK: 处理数字类型分隔显示（WisdomTextOutputMode: Handles keyboard partitioning characters and bits）
     public static func textOutput(textString: String, type: WisdomTextOutputMode)->String{
         if String(textString.last!) == " "{
             var string = textString
@@ -59,18 +59,109 @@ class WisdomTextOutput: NSObject {
         return textString
     }
     
-    /**  Expiration time filter： 输出格式样式
-                                  今天8点过期，
-                                  明天过期，
-                                  后天过期
-     *   timesText:               显示的过期时间
-     *   serverTimesText:         当前时间（不传默认与本地时间比对）
-     *   type:                    输入数据处理类型
+    /**  Expiration time filter： 过期输出格式样式
+                                  [今天8点过期]   [明天过期]   [后天过期]
+     *   timesText:               过期时间原始数据
+     *   serverTimesText:         当前时间对比         (不传默认与本地时间比对）
+     *   type:                    输入处理的数据类型    (确认 WisdomInputTimeConvertType)
      */
     static func expiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(Bool,String) {
+        let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
+        var targetTime = resTime.0
+        var currentTime = resTime.1
+        
+        var timeList = WisdomTextOutput.getTime(time: &targetTime)
+        let targetN = timeList.0
+        let targetY = timeList.1
+        let targetR = timeList.2
+        let targetHM = timeList.3
+        
+        timeList = WisdomTextOutput.getTime(time: &currentTime)
+        let currentN = timeList.0
+        let currentY = timeList.1
+        let currentR = timeList.2
+        let currentHM = timeList.3
+        
+        let targetTimeSum = targetN + targetY + targetR
+        let currentTimeSum = currentN + currentY + currentR
+        let targetHMNew = targetHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
+        let currentHMNew = currentHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
+        
+        if Int(currentTimeSum + currentHMNew)! < Int(targetTimeSum + targetHMNew)!{
+            if Int(targetTimeSum)! - Int(currentTimeSum)! == 2{
+                return (true,"后天过期")
+            }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 1{
+                return (true,"明天过期")
+            }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 0{
+                let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
+                let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
+                var h = String(targetHMNew[startIndex..<endIndex])
+                h = Int(h)! >= 10 ? h+"点":String(h.last!)+"点"
+                return (true,"今天"+h+"过期")
+            }
+            return (true,targetN+"年"+targetY+"月"+targetR+"日")
+        }
+        return (false,targetN+"年"+targetY+"月"+targetR+"日")
+    }
+    
+    /**  History time:    输出格式样式
+     *                    2017年08月12日 21:30        （非同年）
+                          09月12日 23:30              （同年）
+                          昨天 20:30                  （昨天）
+                          上午 10:30，下午 13:30        (当天）
+     *   timesText:       历史时间原始数据
+     *   serverTimestamp: 当前时间对比                 （不传默认与本地时间比对）
+     *   type:            输入处理的数据类型             (确认 WisdomInputTimeConvertType)
+     */
+    static func historyTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) -> String{
+        let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
+        var targetTime = resTime.0
+        var currentTime = resTime.1
+        
+        var timeList = WisdomTextOutput.getTime(time: &targetTime)
+        let targetN = timeList.0
+        let targetY = timeList.1
+        let targetR = timeList.2
+        let targetHM = timeList.3
+ 
+        timeList = WisdomTextOutput.getTime(time: &currentTime)
+        let currentN = timeList.0
+        let currentY = timeList.1
+        let currentR = timeList.2
+
+        let targetTimeSum = targetN + targetY + targetR
+        let currentTimeSum = currentN + currentY + currentR
+
+        if (Int(currentTimeSum)! == Int(targetTimeSum)!) {
+            let targetHMNew = targetHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
+            if Int(targetHMNew)! <= 1200{
+                return "上午 "+targetHM
+            }else{
+                return "下午 "+targetHM
+            }
+        }else if (Int(currentTimeSum)! - Int(targetTimeSum)! == 1) {
+            return "昨天 "+targetHM
+        }else if (Int(targetN)! == Int(currentN)!) {
+            return (targetY+"月"+targetR+"日 "+targetHM)
+        }else{
+            return (targetN+"年"+targetY+"月"+targetR+"日 "+targetHM)
+        }
+    }
+}
+
+extension WisdomTextOutput{
+    //MARK: 时间戳转时间String
+    class func getTimetampToStr(time: Int ,format: DateFormatter)-> String{
+        let timeInterval: TimeInterval = TimeInterval(time)
+        let date = Date(timeIntervalSince1970: timeInterval)
+        return format.string(from: date).replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+    }
+    
+    class fileprivate func getTargetAndCurrentTime(timesText: String, serverTimesText: String?,
+                                                   type: WisdomInputTimeConvertType) ->(String,String){
         let format = DateFormatter()
-        var currentTime = ""
         var targetTime = timesText
+        var currentTime = ""
         
         switch type {
         case .timestamp:
@@ -96,61 +187,7 @@ class WisdomTextOutput: NSObject {
                 currentTime = format.string(from: date)
             }
         }
-        var timeList = WisdomTextOutput.getTime(time: &currentTime)
-        let currentN = timeList.0
-        let currentY = timeList.1
-        let currentR = timeList.2
-        let currentHM = timeList.3
-        
-        timeList = WisdomTextOutput.getTime(time: &targetTime)
-        let targetN = timeList.0
-        let targetY = timeList.1
-        let targetR = timeList.2
-        let targetHM = timeList.3
-        
-        let currentTimeSum = currentN + currentY + currentR
-        let targetTimeSum = targetN + targetY + targetR
-        let currentHMNew = currentHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
-        let targetHMNew = targetHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
-        
-        if Int(currentTimeSum + currentHMNew)! < Int(targetTimeSum + targetHMNew)!{
-            if Int(targetTimeSum)! - Int(currentTimeSum)! == 2{
-                return (true,"后天过期")
-            }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 1{
-                return (true,"明天过期")
-            }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 0{
-                let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
-                let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
-                var h = String(targetHMNew[startIndex..<endIndex])
-                h = Int(h)! >= 10 ? h+"点":String(h.last!)+"点"
-                return (true,"今天"+h+"过期")
-            }
-            return (true,targetN+"年"+targetY+"月"+targetR+"日")
-        }
-        return (false,targetN+"年"+targetY+"月"+targetR+"日")
-    }
-    
-    /**  History time：   输出格式样式
-     *                    2017年08月12日 21:30                 （非同年）
-                          09月12日 23:30                       （同年）
-                          昨天 20:30                           （昨天）
-                          上午 10:30，下午 13:30                （当天）
-     *   serverTimestamp: 当前时间（不传默认与本地时间比对）
-     *   type:            输入处理的数据类型
-     */
-    static func historyTimeOutput(timestampText: String, serverTimestamp: String?, type: WisdomInputTimeConvertType) -> String{
-        
-        
-        return "dddd"
-    }
-}
-
-extension WisdomTextOutput{
-    //时间戳转时间String
-    class func getTimetampToStr(time: Int ,format: DateFormatter)-> String{
-        let timeInterval: TimeInterval = TimeInterval(time)
-        let date = Date(timeIntervalSince1970: timeInterval)
-        return format.string(from: date).replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+        return (targetTime,currentTime)
     }
     
     class fileprivate func getTime(time: inout String) -> (String,String,String,String){

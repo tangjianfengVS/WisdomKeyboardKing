@@ -84,6 +84,9 @@ extension UITextField {
             return .normal
         }
         set(newValue){
+            if newValue != WisdomTextOutputMode.normal {
+                keyboardType = .numberPad
+            }
             objc_setAssociatedObject(self, &WisdomTextOutputModeKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
@@ -94,7 +97,10 @@ extension UITextField {
         endTask = endTasks
     }
     
-    //if setting WisdomTextOutputMode, get value set UITextField text only
+    /**  if setting WisdomTextOutputMode, get value set UITextField text only
+     *   如果设置了WisdomTextOutputMode输出类型，用此方法获取‘Text’文本
+     *   注：方法中去除了分隔符，数字类型文本结果内容也不需要分隔
+     */
     func outputText() -> String {
         if textOutputMode == .normal {
             return text != nil ? text!:""
