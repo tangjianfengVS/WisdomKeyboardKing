@@ -5,7 +5,7 @@
 //  Created by jianfeng on 2018/8/6.
 //  Copyright © 2018年 AllOverTheSkyStar. All rights reserved.
 //  https://github.com/tangjianfengVS/WisdomKeyboardKing
-
+//  简介请看 README.md
 
 import UIKit
 
