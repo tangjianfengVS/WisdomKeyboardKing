@@ -49,6 +49,9 @@ public enum WisdomKeyboardType {
 
 /**
  *  The current keyboard root view moves object
+    指定避让键盘的分类
+              next:  指定上一级父视图避让键盘
+              root:  UIViewController的View避让键盘
  */
 public enum WisdomTransformTargetType {
     case next
@@ -57,13 +60,18 @@ public enum WisdomTransformTargetType {
 
 /**
  *  The content output display styleOutput
+    ---------数字号码分隔格式显示类型,对应如下样式----------
+    PhoneNumber11_4:           1520 1218 189
+    PhoneNumber11_3X4:         152 0121 8189
+    BankcardNumber16_4:        1212 1212 1212 1212     (16位银行卡号)
+    BankcardNumber19_4:        1212 1212 1212 1212 121 (19位银行卡号)
  */
 public enum WisdomTextOutputMode {
     case normal
-    case PhoneNumber11_3     // The longest is 11, one serving 3
-    case PhoneNumber11_4     // The longest is 11, one serving 4
-    case BankcardNumber16_4  // The longest is 16, one portion for 4
-    case BankcardNumber19_4  // The longest is 19, one portion for 4
+    case PhoneNumber11_4
+    case PhoneNumber11_3X4
+    case BankcardNumber16_4
+    case BankcardNumber19_4
 }
 
 /**

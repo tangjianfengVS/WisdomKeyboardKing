@@ -15,7 +15,7 @@ class TextVCViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bottomField.textOutputMode = .BankcardNumber19_4
+        bottomField.textOutputMode = .PhoneNumber11_3X4
         
         topField.wisdomTask(beginTasks: { (view, title, rect) in
             //print(view,title,rect)
@@ -29,6 +29,7 @@ class TextVCViewController: UIViewController {
             //print(view,title,rect)
         }, changeTasks: { (view, title, rect) in
             //print(view,title,rect)
+            print(title)
         }) { (view, title, rect) in
             //print(view,title,rect)
         }
