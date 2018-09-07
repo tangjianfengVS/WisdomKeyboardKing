@@ -8,23 +8,6 @@
 
 
 import UIKit
-/**
- * ------------------Introduction to the---------------------
- * Function 1: auto dodge UITextField, UITextView
- * Function 2: no need to write code correlation, pod integration can be used
- * Function 3: support switching input method to avoid
- * Function 4: support settable, control UITextField, UITextView's hiding distance from the keyboard
- * Function 5: enable the hiding of a large number of UITextField and UITextView on the same page
- 
- * Function 6: UITextField, UITextView supports wisdomTask tasks：
-                beginTasks: a callback when invoking a keyboard
-               changeTasks: a callback when changing text content
-                  endTasks: a callback when the keyboard is closed or the appropriate object is replaced
- 
- * Function 7: Process input expiration time display
-         test: 今天12点过期   明天过期    后天过期   2018年08月11日(已经过期显示)
- */
-
 
 /**
  *  Default distance between keyboard and interactive object
