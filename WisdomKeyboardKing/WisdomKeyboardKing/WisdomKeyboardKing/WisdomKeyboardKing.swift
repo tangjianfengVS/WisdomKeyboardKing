@@ -119,7 +119,9 @@ class WisdomKeyboardKing: NSObject{
         if let textField = noti.object as? UITextField{
             responseView = textField
             getSupView(view: textField)
-            transformView?.layoutIfNeeded()
+            if transformView != nil{
+                transformView!.layoutIfNeeded()
+            }
             
             if textField.beginTask != nil{
                 let rect = textField.convert(textField.bounds, to: window)
@@ -128,7 +130,9 @@ class WisdomKeyboardKing: NSObject{
         }else if let textView = noti.object as? UITextView{
             responseView = textView
             getSupView(view: textView)
-            transformView?.layoutIfNeeded()
+            if transformView != nil{
+                transformView!.layoutIfNeeded()
+            }
    
             let rect = textView.convert(textView.bounds, to: window)
             if textView.beginTask != nil{
@@ -199,9 +203,13 @@ extension WisdomKeyboardKing {
     
     @objc fileprivate func keyBoardWillHide(noti: Notification){
         UIView.animate(withDuration: animateTime, animations: {
-            self.transformView?.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
+            if self.transformView != nil{
+                self.transformView!.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
+            }
         }) { (_) in
-            self.transformView?.gestureRecognizers = self.formerTapGestures
+            if self.transformView != nil{
+                self.transformView!.gestureRecognizers = self.formerTapGestures
+            }
             self.keyboardType = .sleep
             self.formerTapGestures = nil
             self.transformView = nil
@@ -252,7 +260,7 @@ extension WisdomKeyboardKing {
                 keyboardType = .awakeNormal
                 
                 UIView.animate(withDuration: animateTime, animations: {
-                    self.transformView?.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
+                    self.transformView!.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
                 })
             }
         }
@@ -261,7 +269,9 @@ extension WisdomKeyboardKing {
 
 extension WisdomKeyboardKing {
     @objc fileprivate func tapGesture(tap: UITapGestureRecognizer) {
-        transformView?.endEditing(true)
+        if transformView != nil{
+            transformView!.endEditing(true)
+        }
     }
     
     fileprivate func textFieldContentMode(textField: UITextField){
