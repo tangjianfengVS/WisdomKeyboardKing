@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "WisdomKeyboardKing"
-  s.version      = "0.2.3"
+  s.version      = "0.2.4"
   s.summary      = "A short description of WisdomKeyboardKing."
   s.description  = "Keyboard housekeeper"
 
