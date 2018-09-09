@@ -151,75 +151,75 @@ class WisdomTextOutput: NSObject {
 //            return (targetN+"年"+targetY+"月"+targetR+"日 "+targetHM)
 //        }
 //    }
-//}
-//
-//extension WisdomTextOutput{
-//    //MARK: 时间戳转时间String
-//    class func getTimetampToStr(time: Int ,format: DateFormatter)-> String{
-//        let timeInterval: TimeInterval = TimeInterval(time)
-//        let date = Date(timeIntervalSince1970: timeInterval)
-//        return format.string(from: date).replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
-//    }
-//
-//    class fileprivate func getTargetAndCurrentTime(timesText: String, serverTimesText: String?,
-//                                                   type: WisdomInputTimeConvertType) ->(String,String){
-//        let format = DateFormatter()
-//        var targetTime = timesText
-//        var currentTime = ""
-//
-//        switch type {
-//        case .timestamp:
-//            format.dateFormat = "yyyyMMddHH:mm"
-//
-//            if serverTimesText != nil && serverTimesText!.count > 0 {
-//                currentTime = serverTimesText!
-//            }else{
-//                let date = Date()
-//                let dateStamp: TimeInterval = date.timeIntervalSince1970
-//                let dateInt:Int = Int(dateStamp)
-//                currentTime = String(dateInt)
-//            }
-//            currentTime = WisdomTextOutput.getTimetampToStr(time: Int(currentTime)!, format: format)
-//            targetTime = WisdomTextOutput.getTimetampToStr(time: Int(targetTime)!, format: format)
-//        case .input_joint, .input_N_Y_R_joint:
-//            if type == .input_joint{
-//                format.dateFormat = "yyyy-MM-dd HH:mm"
-//            }else{
-//                format.dateFormat = "yyyy年MM月dd日 HH:mm"
-//            }
-//
-//            if serverTimesText != nil && serverTimesText!.count > 0 {
-//                currentTime = serverTimesText!
-//            }else{
-//                let date = Date()
-//                currentTime = format.string(from: date)
-//            }
-//        }
-//        return (targetTime,currentTime)
-//    }
-//
-//    class fileprivate func getTime(time: inout String) -> (String,String,String,String){
-//        time = time.replacingOccurrences(of: "年", with: "", options: .literal, range: nil)
-//        time = time.replacingOccurrences(of: "月", with: "", options: .literal, range: nil)
-//        time = time.replacingOccurrences(of: "日", with: "", options: .literal, range: nil)
-//        time = time.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
-//        time = time.replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
-//
-//        var startIndex = time.startIndex
-//        var endIndex = time.index(time.startIndex, offsetBy: 4)
-//        let currentN = String(time[startIndex..<endIndex])
-//
-//        startIndex = time.index(time.startIndex, offsetBy: 4)
-//        endIndex = time.index(time.startIndex, offsetBy: 6)
-//        let currentY = String(time[startIndex..<endIndex])
-//
-//        startIndex = time.index(time.startIndex, offsetBy: 6)
-//        endIndex = time.index(time.startIndex, offsetBy: 8)
-//        let currentR = String(time[startIndex..<endIndex])
-//
-//        startIndex = time.index(time.startIndex, offsetBy: 8)
-//        endIndex = time.index(time.startIndex, offsetBy: 13)
-//        let currentHM = String(time[startIndex..<endIndex])
-//        return (currentN,currentY,currentR,currentHM)
-//    }
+}
+
+extension WisdomTextOutput{
+    //MARK: 时间戳转时间String
+    class func getTimetampToStr(time: Int ,format: DateFormatter)-> String{
+        let timeInterval: TimeInterval = TimeInterval(time)
+        let date = Date(timeIntervalSince1970: timeInterval)
+        return format.string(from: date).replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+    }
+
+    class fileprivate func getTargetAndCurrentTime(timesText: String, serverTimesText: String?,
+                                                   type: WisdomInputTimeConvertType) ->(String,String){
+        let format = DateFormatter()
+        var targetTime = timesText
+        var currentTime = ""
+
+        switch type {
+        case .timestamp:
+            format.dateFormat = "yyyyMMddHH:mm"
+
+            if serverTimesText != nil && serverTimesText!.count > 0 {
+                currentTime = serverTimesText!
+            }else{
+                let date = Date()
+                let dateStamp: TimeInterval = date.timeIntervalSince1970
+                let dateInt:Int = Int(dateStamp)
+                currentTime = String(dateInt)
+            }
+            currentTime = WisdomTextOutput.getTimetampToStr(time: Int(currentTime)!, format: format)
+            targetTime = WisdomTextOutput.getTimetampToStr(time: Int(targetTime)!, format: format)
+        case .input_joint, .input_N_Y_R_joint:
+            if type == .input_joint{
+                format.dateFormat = "yyyy-MM-dd HH:mm"
+            }else{
+                format.dateFormat = "yyyy年MM月dd日 HH:mm"
+            }
+
+            if serverTimesText != nil && serverTimesText!.count > 0 {
+                currentTime = serverTimesText!
+            }else{
+                let date = Date()
+                currentTime = format.string(from: date)
+            }
+        }
+        return (targetTime,currentTime)
+    }
+
+    class fileprivate func getTime(time: inout String) -> (String,String,String,String){
+        time = time.replacingOccurrences(of: "年", with: "", options: .literal, range: nil)
+        time = time.replacingOccurrences(of: "月", with: "", options: .literal, range: nil)
+        time = time.replacingOccurrences(of: "日", with: "", options: .literal, range: nil)
+        time = time.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+        time = time.replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
+
+        var startIndex = time.startIndex
+        var endIndex = time.index(time.startIndex, offsetBy: 4)
+        let currentN = String(time[startIndex..<endIndex])
+
+        startIndex = time.index(time.startIndex, offsetBy: 4)
+        endIndex = time.index(time.startIndex, offsetBy: 6)
+        let currentY = String(time[startIndex..<endIndex])
+
+        startIndex = time.index(time.startIndex, offsetBy: 6)
+        endIndex = time.index(time.startIndex, offsetBy: 8)
+        let currentR = String(time[startIndex..<endIndex])
+
+        startIndex = time.index(time.startIndex, offsetBy: 8)
+        endIndex = time.index(time.startIndex, offsetBy: 13)
+        let currentHM = String(time[startIndex..<endIndex])
+        return (currentN,currentY,currentR,currentHM)
+    }
 }
