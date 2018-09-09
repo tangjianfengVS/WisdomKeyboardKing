@@ -58,31 +58,6 @@ class WisdomTextOutput: NSObject {
         return textString
     }
     
-    class private func getTime(time: inout String) -> [String]{
-        time = time.replacingOccurrences(of: "年", with: "", options: .literal, range: nil)
-        time = time.replacingOccurrences(of: "月", with: "", options: .literal, range: nil)
-        time = time.replacingOccurrences(of: "日", with: "", options: .literal, range: nil)
-        time = time.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
-        time = time.replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
-        
-        var startIndex = time.startIndex
-        var endIndex = time.index(time.startIndex, offsetBy: 4)
-        let currentN = String(time[startIndex..<endIndex])
-        
-        startIndex = time.index(time.startIndex, offsetBy: 4)
-        endIndex = time.index(time.startIndex, offsetBy: 6)
-        let currentY = String(time[startIndex..<endIndex])
-        
-        startIndex = time.index(time.startIndex, offsetBy: 6)
-        endIndex = time.index(time.startIndex, offsetBy: 8)
-        let currentR = String(time[startIndex..<endIndex])
-        
-        startIndex = time.index(time.startIndex, offsetBy: 8)
-        endIndex = time.index(time.startIndex, offsetBy: 13)
-        let currentHM = String(time[startIndex..<endIndex])
-        return [currentN,currentY,currentR,currentHM]
-    }
-    
     /**  Expiration time filter： 过期输出格式样式
                                   [今天8点过期]   [明天过期]   [后天过期]
      *   timesText:               过期时间原始数据
@@ -221,5 +196,30 @@ extension WisdomTextOutput{
             }
         }
         return (targetTime,currentTime)
+    }
+    
+    class fileprivate func getTime(time: inout String) -> [String]{
+        time = time.replacingOccurrences(of: "年", with: "", options: .literal, range: nil)
+        time = time.replacingOccurrences(of: "月", with: "", options: .literal, range: nil)
+        time = time.replacingOccurrences(of: "日", with: "", options: .literal, range: nil)
+        time = time.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+        time = time.replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
+        
+        var startIndex = time.startIndex
+        var endIndex = time.index(time.startIndex, offsetBy: 4)
+        let currentN: String = String(time[startIndex..<endIndex])
+        
+        startIndex = time.index(time.startIndex, offsetBy: 4)
+        endIndex = time.index(time.startIndex, offsetBy: 6)
+        let currentY: String = String(time[startIndex..<endIndex])
+        
+        startIndex = time.index(time.startIndex, offsetBy: 6)
+        endIndex = time.index(time.startIndex, offsetBy: 8)
+        let currentR: String = String(time[startIndex..<endIndex])
+        
+        startIndex = time.index(time.startIndex, offsetBy: 8)
+        endIndex = time.index(time.startIndex, offsetBy: 13)
+        let currentHM: String = String(time[startIndex..<endIndex])
+        return [currentN,currentY,currentR,currentHM]
     }
 }
