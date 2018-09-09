@@ -94,8 +94,13 @@ class WisdomTextOutput: NSObject {
             }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 0{
                 let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
                 let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
+                
                 var h = String(targetHMNew[startIndex..<endIndex])
-                h = (Int(h)! >= 10) ? h+"点":String(h.last!)+"点"
+                if Int(h)! >= 10{
+                    h = h+"点"
+                }else{
+                    h = String(h.last!)+"点"
+                }
                 return (true,"今天"+h+"过期")
             }
             return (true,targetN+"年"+targetY+"月"+targetR+"日")
@@ -177,7 +182,11 @@ extension WisdomTextOutput{
             currentTime = WisdomTextOutput.getTimetampToStr(time: Int(currentTime)!, format: format)
             targetTime = WisdomTextOutput.getTimetampToStr(time: Int(targetTime)!, format: format)
         case .input_joint, .input_N_Y_R_joint:
-            format.dateFormat = (type == .input_joint) ? "yyyy-MM-dd HH:mm":"yyyy年MM月dd日 HH:mm"
+            if type == .input_joint{
+                format.dateFormat = "yyyy-MM-dd HH:mm"
+            }else{
+                format.dateFormat = "yyyy年MM月dd日 HH:mm"
+            }
             
             if serverTimesText != nil && serverTimesText!.count > 0 {
                 currentTime = serverTimesText!
