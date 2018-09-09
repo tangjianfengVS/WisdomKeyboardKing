@@ -11,7 +11,7 @@ import UIKit
 class WisdomTextOutput: NSObject {
 
     //MARK: 处理数字类型分隔显示（WisdomTextOutputMode: Handles keyboard partitioning characters and bits）
-    public static func textOutput(textString: String, type: WisdomTextOutputMode)->String{
+    class func textOutput(textString: String, type: WisdomTextOutputMode)->String{
         if String(textString.last!) == " "{
             var string = textString
             string.removeLast()
@@ -64,7 +64,7 @@ class WisdomTextOutput: NSObject {
      *   serverTimesText:         当前时间对比         (传空："" -> 默认与本地时间比对）
      *   type:                    输入处理的数据类型    (确认 WisdomInputTimeConvertType)
      */
-    static func expiredTimeOutput(timesText: String, serverTimesText: String, type: WisdomInputTimeConvertType) ->(Bool,String) {
+    class func expiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(Bool,String) {
         let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
         var targetTime = resTime.0
         var currentTime = resTime.1
@@ -112,7 +112,7 @@ class WisdomTextOutput: NSObject {
      *   serverTimestamp: 当前时间对比                 （传空："" -> 默认与本地时间比对）
      *   type:            输入处理的数据类型             (确认 WisdomInputTimeConvertType)
      */
-    static func historyTimeOutput(timesText: String, serverTimesText: String, type: WisdomInputTimeConvertType) -> String{
+    class func historyTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) -> String{
         let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
         var targetTime = resTime.0
         var currentTime = resTime.1
@@ -156,9 +156,8 @@ extension WisdomTextOutput{
         return format.string(from: date).replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
     }
     
-    class fileprivate func getTargetAndCurrentTime(timesText: String, serverTimesText: String,
+    class fileprivate func getTargetAndCurrentTime(timesText: String, serverTimesText: String?,
                                                    type: WisdomInputTimeConvertType) ->(String,String){
-        let str = serverTimesText.replacingOccurrences(of: " ", with: "")
         let format = DateFormatter()
         var targetTime = timesText
         var currentTime = ""
@@ -167,8 +166,8 @@ extension WisdomTextOutput{
         case .timestamp:
             format.dateFormat = "yyyyMMddHH:mm"
             
-            if str.count > 0 {
-                currentTime = serverTimesText
+            if serverTimesText != nil && serverTimesText!.count > 0 {
+                currentTime = serverTimesText!
             }else{
                 let date = Date()
                 let dateStamp: TimeInterval = date.timeIntervalSince1970
@@ -180,8 +179,8 @@ extension WisdomTextOutput{
         case .input_joint, .input_N_Y_R_joint:
             format.dateFormat = (type == .input_joint) ? "yyyy-MM-dd HH:mm":"yyyy年MM月dd日 HH:mm"
             
-            if str.count > 0 {
-                currentTime = serverTimesText
+            if serverTimesText != nil && serverTimesText!.count > 0 {
+                currentTime = serverTimesText!
             }else{
                 let date = Date()
                 currentTime = format.string(from: date)
