@@ -64,49 +64,49 @@ class WisdomTextOutput: NSObject {
      *   serverTimesText:         当前时间对比         (传空："" -> 默认与本地时间比对）
      *   type:                    输入处理的数据类型    (确认 WisdomInputTimeConvertType)
      */
-//    class func expiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(Bool,String) {
-//        let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
-//        var targetTime = resTime.0
-//        var currentTime = resTime.1
-//
-//        var timeList = WisdomTextOutput.getTime(time: &targetTime)
-//        let targetN = timeList.0
-//        let targetY = timeList.1
-//        let targetR = timeList.2
-//        let targetHM = timeList.3
-//
-//        timeList = WisdomTextOutput.getTime(time: &currentTime)
-//        let currentN = timeList.0
-//        let currentY = timeList.1
-//        let currentR = timeList.2
-//        let currentHM = timeList.3
-//
-//        let targetTimeSum = targetN + targetY + targetR
-//        let currentTimeSum = currentN + currentY + currentR
-//        let targetHMNew = targetHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
-//        let currentHMNew = currentHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
-//
-//        if Int(currentTimeSum + currentHMNew)! < Int(targetTimeSum + targetHMNew)!{
-//            if Int(targetTimeSum)! - Int(currentTimeSum)! == 2{
-//                return (true,"后天过期")
-//            }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 1{
-//                return (true,"明天过期")
-//            }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 0{
-//                let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
-//                let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
-//
-//                var h = String(targetHMNew[startIndex..<endIndex])
-//                if Int(h)! >= 10{
-//                    h = h+"点"
-//                }else{
-//                    h = String(h.last!)+"点"
-//                }
-//                return (true,"今天"+h+"过期")
-//            }
-//            return (true,targetN+"年"+targetY+"月"+targetR+"日")
-//        }
-//        return (false,targetN+"年"+targetY+"月"+targetR+"日")
-//    }
+    class func expiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(Bool,String) {
+        let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
+        var targetTime = resTime.0
+        var currentTime = resTime.1
+
+        var timeList = WisdomTextOutput.getTime(time: &targetTime)
+        let targetN = timeList.0
+        let targetY = timeList.1
+        let targetR = timeList.2
+        let targetHM = timeList.3
+
+        timeList = WisdomTextOutput.getTime(time: &currentTime)
+        let currentN = timeList.0
+        let currentY = timeList.1
+        let currentR = timeList.2
+        let currentHM = timeList.3
+
+        let targetTimeSum = targetN + targetY + targetR
+        let currentTimeSum = currentN + currentY + currentR
+        let targetHMNew = targetHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
+        let currentHMNew = currentHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
+
+        if Int(currentTimeSum + currentHMNew)! < Int(targetTimeSum + targetHMNew)!{
+            if Int(targetTimeSum)! - Int(currentTimeSum)! == 2{
+                return (true,"后天过期")
+            }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 1{
+                return (true,"明天过期")
+            }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 0{
+                let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
+                let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
+
+                var h = String(targetHMNew[startIndex..<endIndex])
+                if Int(h)! >= 10{
+                    h = h+"点"
+                }else{
+                    h = String(h.last!)+"点"
+                }
+                return (true,"今天"+h+"过期")
+            }
+            return (true,targetN+"年"+targetY+"月"+targetR+"日")
+        }
+        return (false,targetN+"年"+targetY+"月"+targetR+"日")
+    }
 //
 //    /**  History time:    输出格式样式
 //     *                    2017年08月12日 21:30        （非同年）
@@ -198,7 +198,7 @@ extension WisdomTextOutput{
         return (targetTime,currentTime)
     }
     
-    class fileprivate func getTime(time: inout String) -> [String]{
+    class fileprivate func getTime(time: inout String) -> (String,String,String,String){
         time = time.replacingOccurrences(of: "年", with: "", options: .literal, range: nil)
         time = time.replacingOccurrences(of: "月", with: "", options: .literal, range: nil)
         time = time.replacingOccurrences(of: "日", with: "", options: .literal, range: nil)
@@ -220,6 +220,6 @@ extension WisdomTextOutput{
         startIndex = time.index(time.startIndex, offsetBy: 8)
         endIndex = time.index(time.startIndex, offsetBy: 13)
         let currentHM: String = String(time[startIndex..<endIndex])
-        return [currentN,currentY,currentR,currentHM]
+        return (currentN,currentY,currentR,currentHM)
     }
 }
