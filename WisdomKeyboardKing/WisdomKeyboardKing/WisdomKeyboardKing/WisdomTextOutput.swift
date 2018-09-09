@@ -95,8 +95,10 @@ class WisdomTextOutput: NSObject {
                 let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
                 let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
 
-                var h = String(targetHMNew[startIndex..<endIndex])
-                if Int(h)! >= 10{
+                var h: String = String(targetHMNew[startIndex..<endIndex])
+                let intH: Int = Int(h)!
+                
+                if intH >= 10{
                     h = h+"点"
                 }else{
                     h = String(h.last!)+"点"
