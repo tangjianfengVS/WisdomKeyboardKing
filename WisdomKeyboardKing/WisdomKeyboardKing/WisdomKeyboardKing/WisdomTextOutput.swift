@@ -198,7 +198,7 @@ extension WisdomTextOutput{
         return (targetTime,currentTime)
     }
 
-    class fileprivate func getTime(time: inout String) -> (String,String,String,String){
+    class fileprivate func getTime(time: inout String) -> [String]{
         time = time.replacingOccurrences(of: "年", with: "", options: .literal, range: nil)
         time = time.replacingOccurrences(of: "月", with: "", options: .literal, range: nil)
         time = time.replacingOccurrences(of: "日", with: "", options: .literal, range: nil)
@@ -220,6 +220,6 @@ extension WisdomTextOutput{
         startIndex = time.index(time.startIndex, offsetBy: 8)
         endIndex = time.index(time.startIndex, offsetBy: 13)
         let currentHM = String(time[startIndex..<endIndex])
-        return (currentN,currentY,currentR,currentHM)
+        return [currentN,currentY,currentR,currentHM]
     }
 }
