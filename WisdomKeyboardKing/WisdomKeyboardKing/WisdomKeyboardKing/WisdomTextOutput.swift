@@ -8,10 +8,10 @@
 
 import UIKit
 
-class WisdomTextOutput: NSObject {
+@objc public class WisdomTextOutput: NSObject {
 
     //MARK: 处理数字类型分隔显示（WisdomTextOutputMode: Handles keyboard partitioning characters and bits）
-    class func textOutput(textString: String, type: WisdomTextOutputMode)->String{
+    public class func textOutput(textString: String, type: WisdomTextOutputMode)->String{
         if String(textString.last!) == " "{
             var string = textString
             string.removeLast()
@@ -61,10 +61,12 @@ class WisdomTextOutput: NSObject {
     /**  Expiration time filter： 过期输出格式样式
                                   [今天8点过期]   [明天过期]   [后天过期]
      *   timesText:               过期时间原始数据
-     *   serverTimesText:         当前时间对比         (传空："" -> 默认与本地时间比对）
+     *   serverTimesText:         当前时间对比         (传nil默认与本地时间比对）
      *   type:                    输入处理的数据类型    (确认 WisdomInputTimeConvertType)
+     
+     *   @discussion:             -------因为OC不支持多数据返回值类型，所以此方法只支持Swift调用（OC版见下面）------
      */
-    class func expiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(Bool,String) {
+    public class func expiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(Bool,String) {
         let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
         var targetTime = resTime.0
         var currentTime = resTime.1
@@ -97,29 +99,42 @@ class WisdomTextOutput: NSObject {
 
                 var h: String = String(targetHMNew[startIndex..<endIndex])
                 let intH: Int = Int(h)!
-                
-                if intH >= 10{
-                    h = h+"点"
-                }else{
-                    h = String(h.last!)+"点"
-                }
+                h = (intH >= 10) ? h+"点":String(h.last!)+"点"
                 return (true,"今天"+h+"过期")
             }
-            return (true,targetN+"年"+targetY+"月"+targetR+"日")
+            return (false,targetN+"年"+targetY+"月"+targetR+"日")
         }
         return (false,targetN+"年"+targetY+"月"+targetR+"日")
     }
-
+    
+    /**  Expiration time filter： 过期输出格式样式
+                                  [今天8点过期]   [明天过期]   [后天过期]
+     *   timesText:               过期时间原始数据
+     *   serverTimesText:         当前时间对比         (传nil默认与本地时间比对）
+     *   type:                    输入处理的数据类型    (确认 WisdomInputTimeConvertType)
+     
+     *   @discussion:             ------因为OC不支持多数据返回值类型，所以OC处理过期数据调用此方法------
+     *   返回值String:             需要显示过期描述，会有值返回
+                                  不需要显示过期描述，返回 ""
+     */
+    public class func oc_ExpiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(String){
+        let res = WisdomTextOutput.expiredTimeOutput(timesText: timesText, serverTimesText: serverTimesText, type: type)
+        if res.0 {
+            return res.1
+        }
+        return ""
+    }
+    
     /**  History time:    输出格式样式
      *                    2017年08月12日 21:30        （非同年）
                           09月12日 23:30              （同年）
                           昨天 20:30                  （昨天）
                           上午 10:30，下午 13:30        (当天）
      *   timesText:       历史时间原始数据
-     *   serverTimestamp: 当前时间对比                 （传空："" -> 默认与本地时间比对）
+     *   serverTimestamp: 当前时间对比                 （传nil默认与本地时间比对）
      *   type:            输入处理的数据类型             (确认 WisdomInputTimeConvertType)
      */
-    class func historyTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) -> String{
+    public class func historyTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) -> String{
         let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
         var targetTime = resTime.0
         var currentTime = resTime.1
@@ -160,33 +175,39 @@ class WisdomTextOutput: NSObject {
 }
 
 extension WisdomTextOutput{
-    //MARK: 时间戳转时间String
-    class func getTimetampToStr(time: Int ,format: DateFormatter)-> String{
-        let timeInterval: TimeInterval = TimeInterval(time)
+    //MARK: 时间戳转时间String，默认： .timestamp_10 类型
+    public class func getTimetampToStr(time: Int, format: DateFormatter, type: WisdomInputTimeConvertType)-> String{
+        var timeInterval: TimeInterval = TimeInterval(time)
+        if type == .timestamp_13 {
+            timeInterval = TimeInterval(time)/1000.0
+        }
         let date = Date(timeIntervalSince1970: timeInterval)
         return format.string(from: date).replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
     }
 
-    class fileprivate func getTargetAndCurrentTime(timesText: String, serverTimesText: String?,
+    fileprivate class func getTargetAndCurrentTime(timesText: String, serverTimesText: String?,
                                                    type: WisdomInputTimeConvertType) ->(String,String){
         let format = DateFormatter()
         var targetTime = timesText
         var currentTime = ""
 
         switch type {
-        case .timestamp:
+        case .timestamp_10, .timestamp_13:
             format.dateFormat = "yyyyMMddHH:mm"
 
             if serverTimesText != nil && serverTimesText!.count > 0 {
                 currentTime = serverTimesText!
             }else{
                 let date = Date()
-                let dateStamp: TimeInterval = date.timeIntervalSince1970
+                var dateStamp: TimeInterval = date.timeIntervalSince1970
+                if type == .timestamp_13{
+                    dateStamp = date.timeIntervalSince1970*1000
+                }
                 let dateInt:Int = Int(dateStamp)
                 currentTime = String(dateInt)
             }
-            currentTime = WisdomTextOutput.getTimetampToStr(time: Int(currentTime)!, format: format)
-            targetTime = WisdomTextOutput.getTimetampToStr(time: Int(targetTime)!, format: format)
+            currentTime = WisdomTextOutput.getTimetampToStr(time: Int(currentTime)!, format: format, type: type)
+            targetTime = WisdomTextOutput.getTimetampToStr(time: Int(targetTime)!, format: format, type: type)
         case .input_joint, .input_N_Y_R_joint:
             if type == .input_joint{
                 format.dateFormat = "yyyy-MM-dd HH:mm"
@@ -204,7 +225,7 @@ extension WisdomTextOutput{
         return (targetTime,currentTime)
     }
     
-    class fileprivate func getTime(time: inout String) -> (String,String,String,String){
+    fileprivate class func getTime(time: inout String) -> (String,String,String,String){
         time = time.replacingOccurrences(of: "年", with: "", options: .literal, range: nil)
         time = time.replacingOccurrences(of: "月", with: "", options: .literal, range: nil)
         time = time.replacingOccurrences(of: "日", with: "", options: .literal, range: nil)

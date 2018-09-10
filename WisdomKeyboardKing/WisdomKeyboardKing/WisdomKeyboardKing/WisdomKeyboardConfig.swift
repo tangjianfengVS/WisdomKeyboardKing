@@ -33,12 +33,12 @@ public enum WisdomKeyboardType {
 /**
  *  The current keyboard root view moves object
     指定避让键盘的分类
-              next:  指定上一级父视图避让键盘
-              root:  UIViewController的View避让键盘
+    next:  指定上一级父视图避让键盘
+    root:  UIViewController的View避让键盘
  */
-public enum WisdomTransformTargetType {
-    case next
-    case root
+@objc public enum WisdomTransformTargetType: NSInteger {
+    case next=0
+    case root=1
 }
 
 /**
@@ -49,20 +49,21 @@ public enum WisdomTransformTargetType {
     BankcardNumber16_4:        1212 1212 1212 1212     (16位银行卡号)
     BankcardNumber19_4:        1212 1212 1212 1212 121 (19位银行卡号)
  */
-public enum WisdomTextOutputMode {
-    case normal
-    case PhoneNumber11_4
-    case PhoneNumber11_3X4
-    case BankcardNumber16_4
-    case BankcardNumber19_4
+@objc public enum WisdomTextOutputMode: NSInteger {
+    case normal=0
+    case PhoneNumber11_4=1
+    case PhoneNumber11_3X4=2
+    case BankcardNumber16_4=3
+    case BankcardNumber19_4=4
 }
 
 /**
  *  Time Raw data types for time processing
     时间处理的原始数据类型
  */
-public enum WisdomInputTimeConvertType {
-    case timestamp           //时间戳
-    case input_joint         //"-"拼接
-    case input_N_Y_R_joint   //"年，月，日"拼接
+@objc public enum WisdomInputTimeConvertType: NSInteger {
+    case timestamp_10=0        //10位时间戳
+    case timestamp_13=1        //13位时间戳
+    case input_joint=2         //"-"拼接
+    case input_N_Y_R_joint=3   //"年，月，日"拼接
 }
