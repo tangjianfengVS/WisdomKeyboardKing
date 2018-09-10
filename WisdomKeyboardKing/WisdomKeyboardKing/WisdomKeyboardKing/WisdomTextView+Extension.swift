@@ -14,7 +14,7 @@ fileprivate var WisdomBeginTaskKey_TextView = "WisdomBeginTaskKey_TextField";
 fileprivate var WisdomChangeTaskKey_TextView = "WisdomChangeTaskKey_TextField";
 fileprivate var WisdomEndTaskKey_TextView = "WisdomEndTaskKey_TextField";
 
-extension UITextView {
+@objc extension UITextView {
     var wisdomTransformTarget: WisdomTransformTargetType{
         get{
             if let target = objc_getAssociatedObject(self, &WisdomTransformTargetKey_TextView) as? WisdomTransformTargetType{

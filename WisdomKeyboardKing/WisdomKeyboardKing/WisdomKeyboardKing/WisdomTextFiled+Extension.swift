@@ -15,7 +15,7 @@ fileprivate var WisdomChangeTaskKey_TextField = "WisdomChangeTaskKey_TextField";
 fileprivate var WisdomEndTaskKey_TextField = "WisdomEndTaskKey_TextField";
 fileprivate var WisdomTextOutputModeKey_TextField = "WisdomTextOutputModeKey_TextField";
 
-extension UITextField {
+@objc extension UITextField {
     var wisdomTransformTarget: WisdomTransformTargetType{
         get{
             if let target = objc_getAssociatedObject(self, &WisdomTransformTargetKey_TextField) as? WisdomTransformTargetType{
@@ -76,7 +76,7 @@ extension UITextField {
         }
     }
     
-    var textOutputMode: WisdomTextOutputMode?{
+    var textOutputMode: WisdomTextOutputMode{
         get{
             if let mode = objc_getAssociatedObject(self, &WisdomTextOutputModeKey_TextField) as? WisdomTextOutputMode{
                 return mode
@@ -86,6 +86,10 @@ extension UITextField {
         set(newValue){
             if newValue != WisdomTextOutputMode.normal {
                 keyboardType = .numberPad
+                
+                if text != nil && text!.count > 0 {
+                    text = WisdomTextOutput.updateTextOutput(textString: text!, type: newValue)
+                }
             }
             objc_setAssociatedObject(self, &WisdomTextOutputModeKey_TextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }

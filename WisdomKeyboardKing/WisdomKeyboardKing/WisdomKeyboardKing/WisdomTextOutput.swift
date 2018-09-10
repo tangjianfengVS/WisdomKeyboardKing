@@ -58,6 +58,59 @@ import UIKit
         return textString
     }
     
+    //MARK: 处理数字类型分隔显示,此方法用于直接赋值转换格式
+    public class func updateTextOutput(textString: String, type: WisdomTextOutputMode)->String{
+        var newStr: String = textString.replacingOccurrences(of: " ", with: "")
+        if newStr.count == 0{
+            return textString
+        }
+        
+        func updateStr(lengthSum: Int){
+            if newStr.count > lengthSum {
+                let startIndex = newStr.startIndex
+                let endIndex = newStr.index(newStr.startIndex, offsetBy:lengthSum)
+                newStr = String(newStr[startIndex..<endIndex])
+            }
+        }
+        
+        var resString: String = ""
+        let length: Int = 4
+        var lengthSum: Int = 0
+        switch type {
+        case .PhoneNumber11_3X4:
+            lengthSum = 11
+            updateStr(lengthSum: lengthSum)
+            newStr.insert("0", at: newStr.startIndex)
+        case .PhoneNumber11_4:
+            lengthSum = 11
+            updateStr(lengthSum: lengthSum)
+        case .BankcardNumber16_4:
+            lengthSum = 16
+            updateStr(lengthSum: lengthSum)
+        case .BankcardNumber19_4:
+            lengthSum = 19
+            updateStr(lengthSum: lengthSum)
+        default : break
+        }
+        
+        for i in 1...newStr.count {
+            let sIndex = newStr.index(newStr.startIndex, offsetBy: i-1)
+            let eIndex = newStr.index(newStr.startIndex, offsetBy: i)
+            let str: String = String(newStr[sIndex..<eIndex])
+            
+            if i % length == 1 && i > 1 {
+                resString.append(" ")
+                resString.append(str)
+            }else{
+                resString.append(str)
+            }
+        }
+        if type == .PhoneNumber11_3X4 {
+            resString.removeFirst()
+        }
+        return resString
+    }
+    
     /**  Expiration time filter： 过期输出格式样式
                                   [今天8点过期]   [明天过期]   [后天过期]
      *   timesText:               过期时间原始数据

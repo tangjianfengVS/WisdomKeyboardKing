@@ -276,9 +276,9 @@ extension WisdomKeyboardKing {
     
     fileprivate func textFieldContentMode(textField: UITextField){
         if textField.text == nil || textField.text == "" ||
-           textField.textOutputMode! == .normal{
+           textField.textOutputMode == .normal{
             return
         }
-        textField.text! = WisdomTextOutput.textOutput(textString: textField.text!, type: textField.textOutputMode!)
+        textField.text! = WisdomTextOutput.textOutput(textString: textField.text!, type: textField.textOutputMode)
     }
 }
