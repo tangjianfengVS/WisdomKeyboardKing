@@ -68,13 +68,15 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
 
     enum：
     public enum WisdomInputTimeConvertType {
-        case timestamp         
+        case timestamp_10        //10位
+        case timestamp_13        //13位        
         case input_joint        
         case input_N_Y_R_joint   
     }
 
     Enumeration analysis (raw data type for time processing) :
-    timestamp                //The time stamp
+    timestamp_10             //10位时间戳
+    timestamp_13             //13位时间戳
     input_joint              //Text "-" splicing
     input_N_Y_R_joint        //Text "year, month, day" are spliced together
 
@@ -95,13 +97,15 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
 
     enum：
     public enum WisdomInputTimeConvertType {
-        case timestamp         
+        case timestamp_10        //10位
+        case timestamp_13        //13位        
         case input_joint        
-        case input_N_Y_R_joint   
+        case input_N_Y_R_joint    
     }
 
     Enumeration analysis (raw data type for time processing) :
-    timestamp                //The time stamp
+    timestamp_10             //10位
+    timestamp_13             //13位 
     input_joint              //Text "-" splicing
     input_N_Y_R_joint        //Text "year, month, day" are spliced together
 
@@ -193,13 +197,15 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
 
     枚举：
     public enum WisdomInputTimeConvertType {
-        case timestamp         
+        case timestamp_10        //10位时间戳
+        case timestamp_13        //13位时间戳       
         case input_joint        
         case input_N_Y_R_joint   
     }
 
     枚举分析(时间处理的原始数据类型)：
-        timestamp              //时间戳
+        timestamp_10=0         //10位时间戳
+        timestamp_13=1         //13位时间戳
         input_joint            //"-"拼接
         input_N_Y_R_joint      //"年，月，日"拼接
 
@@ -221,13 +227,15 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
 
     枚举：
     public enum WisdomInputTimeConvertType {
-       case timestamp         
+       case timestamp_10        //10位时间戳
+       case timestamp_13        //13位时间戳           
        case input_joint        
        case input_N_Y_R_joint   
     }
 
     枚举分析(时间处理的原始数据类型)：
-       timestamp              //时间戳
+       timestamp_10        //10位时间戳
+       timestamp_13        //13位时间戳     
        input_joint            //"-"拼接
        input_N_Y_R_joint      //"年，月，日"拼接
 
