@@ -8,10 +8,10 @@
 
 import UIKit
 
-@objc public class WisdomTextOutput: NSObject {
+public class WisdomTextOutput: NSObject {
 
     //MARK: 处理数字类型分隔显示（WisdomTextOutputMode: Handles keyboard partitioning characters and bits）
-    public class func textOutput(textString: String, type: WisdomTextOutputMode)->String{
+    @objc public class func textOutput(textString: String, type: WisdomTextOutputMode)->String{
         if String(textString.last!) == " "{
             var string = textString
             string.removeLast()
@@ -59,7 +59,7 @@ import UIKit
     }
     
     //MARK: 处理数字类型分隔显示,此方法用于直接赋值转换格式
-    public class func updateTextOutput(textString: String, type: WisdomTextOutputMode)->String{
+    @objc public class func updateTextOutput(textString: String, type: WisdomTextOutputMode)->String{
         var newStr: String = textString.replacingOccurrences(of: " ", with: "")
         if newStr.count == 0{
             return textString
@@ -170,7 +170,7 @@ import UIKit
      *   返回值String:             需要显示过期描述，会有值返回
                                   不需要显示过期描述，返回 ""
      */
-    public class func oc_ExpiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(String){
+    @objc public class func oc_ExpiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(String){
         let res = WisdomTextOutput.expiredTimeOutput(timesText: timesText, serverTimesText: serverTimesText, type: type)
         if res.0 {
             return res.1
@@ -187,7 +187,7 @@ import UIKit
      *   serverTimestamp: 当前时间对比                 （传nil默认与本地时间比对）
      *   type:            输入处理的数据类型             (确认 WisdomInputTimeConvertType)
      */
-    public class func historyTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) -> String{
+    @objc public class func historyTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) -> String{
         let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
         var targetTime = resTime.0
         var currentTime = resTime.1
@@ -229,7 +229,7 @@ import UIKit
 
 extension WisdomTextOutput{
     //MARK: 时间戳转时间String，默认： .timestamp_10 类型
-    public class func getTimetampToStr(time: Int, format: DateFormatter, type: WisdomInputTimeConvertType)-> String{
+    @objc public class func getTimetampToStr(time: Int, format: DateFormatter, type: WisdomInputTimeConvertType)-> String{
         var timeInterval: TimeInterval = TimeInterval(time)
         if type == .timestamp_13 {
             timeInterval = TimeInterval(time)/1000.0

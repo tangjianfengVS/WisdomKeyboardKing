@@ -16,7 +16,7 @@ fileprivate var WisdomEndTaskKey_TextField = "WisdomEndTaskKey_TextField";
 fileprivate var WisdomTextOutputModeKey_TextField = "WisdomTextOutputModeKey_TextField";
 
 @objc extension UITextField {
-    var wisdomTransformTarget: WisdomTransformTargetType{
+    public var wisdomTransformTarget: WisdomTransformTargetType{
         get{
             if let target = objc_getAssociatedObject(self, &WisdomTransformTargetKey_TextField) as? WisdomTransformTargetType{
                 return target
@@ -28,7 +28,7 @@ fileprivate var WisdomTextOutputModeKey_TextField = "WisdomTextOutputModeKey_Tex
         }
     }
     
-    var betweenKeyboardSpace: CGFloat{
+    public var betweenKeyboardSpace: CGFloat{
         get{
             if let space = objc_getAssociatedObject(self, &WisdomBetweenKeyboardKey_TextField) as? CGFloat{
                 return space > 0 ? space:0
@@ -76,7 +76,7 @@ fileprivate var WisdomTextOutputModeKey_TextField = "WisdomTextOutputModeKey_Tex
         }
     }
     
-    var textOutputMode: WisdomTextOutputMode{
+    public var textOutputMode: WisdomTextOutputMode{
         get{
             if let mode = objc_getAssociatedObject(self, &WisdomTextOutputModeKey_TextField) as? WisdomTextOutputMode{
                 return mode
@@ -95,7 +95,7 @@ fileprivate var WisdomTextOutputModeKey_TextField = "WisdomTextOutputModeKey_Tex
         }
     }
     
-    func wisdomTask(beginTasks: @escaping WisdomEventTask, changeTasks: @escaping WisdomEventTask, endTasks: @escaping WisdomEventTask) {
+    public func wisdomTask(beginTasks: @escaping WisdomEventTask, changeTasks: @escaping WisdomEventTask, endTasks: @escaping WisdomEventTask) {
         beginTask = beginTasks
         changeTask = beginTasks
         endTask = endTasks
@@ -105,7 +105,7 @@ fileprivate var WisdomTextOutputModeKey_TextField = "WisdomTextOutputModeKey_Tex
      *   如果设置了WisdomTextOutputMode输出类型，用此方法获取‘Text’文本
      *   注：方法中去除了分隔符，数字类型文本结果内容也不需要分隔
      */
-    func outputText() -> String {
+    public func outputText() -> String {
         if textOutputMode == .normal {
             return text != nil ? text!:""
         }

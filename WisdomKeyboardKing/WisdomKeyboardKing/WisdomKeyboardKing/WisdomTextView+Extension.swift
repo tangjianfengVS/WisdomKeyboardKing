@@ -15,7 +15,7 @@ fileprivate var WisdomChangeTaskKey_TextView = "WisdomChangeTaskKey_TextField";
 fileprivate var WisdomEndTaskKey_TextView = "WisdomEndTaskKey_TextField";
 
 @objc extension UITextView {
-    var wisdomTransformTarget: WisdomTransformTargetType{
+    public var wisdomTransformTarget: WisdomTransformTargetType{
         get{
             if let target = objc_getAssociatedObject(self, &WisdomTransformTargetKey_TextView) as? WisdomTransformTargetType{
                 return target
@@ -27,7 +27,7 @@ fileprivate var WisdomEndTaskKey_TextView = "WisdomEndTaskKey_TextField";
         }
     }
     
-    var betweenKeyboardSpace: CGFloat{
+    public var betweenKeyboardSpace: CGFloat{
         get{
             if let space = objc_getAssociatedObject(self, &WisdomBetweenKeyboardKey_TextView) as? CGFloat{
                 return space > 0 ? space:0
@@ -75,7 +75,7 @@ fileprivate var WisdomEndTaskKey_TextView = "WisdomEndTaskKey_TextField";
         }
     }
     
-    func wisdomTask(beginTasks: @escaping WisdomEventTask, changeTasks: @escaping WisdomEventTask, endTasks: @escaping WisdomEventTask) {
+    public func wisdomTask(beginTasks: @escaping WisdomEventTask, changeTasks: @escaping WisdomEventTask, endTasks: @escaping WisdomEventTask) {
         beginTask = beginTasks
         changeTask = beginTasks
         endTask = endTasks

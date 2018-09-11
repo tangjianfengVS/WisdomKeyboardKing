@@ -31,7 +31,8 @@ class WisdomKeyboardKing: NSObject{
     fileprivate var responseView: UIView?
     
     fileprivate var transformSumY: CGFloat = 0
-    fileprivate let animateTime: TimeInterval = 0.25
+    fileprivate let animateTime: CGFloat = 0.25
+    fileprivate let animateBaseHeight: CGFloat = 135.0
     fileprivate var keyboardFrame: CGRect = .zero
     
     fileprivate var formerTapGestures: [UITapGestureRecognizer]?
@@ -75,10 +76,11 @@ class WisdomKeyboardKing: NSObject{
     }
     
     @objc fileprivate func textViewDidBeginEditing(noti: Notification) {
-        
-        func nextView(view: UIView)->UIView?{
+        //处理root视图
+        func nextView(view: UIView)->UIView {
             var nextRes = view.next
-            while(nextRes != nil){
+            
+            while(nextRes != nil) {
                 if let VC = nextRes as? UIViewController{
                     if formerTapGestures == nil{
                         formerTapGestures = VC.view.gestureRecognizers as? [UITapGestureRecognizer]
@@ -92,7 +94,7 @@ class WisdomKeyboardKing: NSObject{
                 }
                 nextRes = nextRes?.next
             }
-            return nil
+            return view.superview!
         }
         
         func getSupView(view: UIView) {
@@ -202,14 +204,12 @@ extension WisdomKeyboardKing {
     }
     
     @objc fileprivate func keyBoardWillHide(noti: Notification){
-        UIView.animate(withDuration: animateTime, animations: {
-            if self.transformView != nil{
-                self.transformView!.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
-            }
+        let time: TimeInterval = TimeInterval(abs(transformSumY) / animateBaseHeight * animateTime)
+        
+        UIView.animate(withDuration: time, animations: {
+            self.transformView?.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
         }) { (_) in
-            if self.transformView != nil{
-                self.transformView!.gestureRecognizers = self.formerTapGestures
-            }
+            self.transformView?.gestureRecognizers = self.formerTapGestures
             self.keyboardType = .sleep
             self.formerTapGestures = nil
             self.transformView = nil
@@ -230,7 +230,8 @@ extension WisdomKeyboardKing {
                 transformSumY = -transformOffsetY
                 keyboardType = .awakeTransform
                 
-                UIView.animate(withDuration: animateTime, animations: {
+                let time: TimeInterval = TimeInterval(abs(transformOffsetY) / animateBaseHeight * animateTime)
+                UIView.animate(withDuration: time, animations: {
                     self.transformView!.transform = self.transformView!.transform.translatedBy(x: 0, y: transformOffsetY)
                 })
             }else{
@@ -242,7 +243,8 @@ extension WisdomKeyboardKing {
                 transformSumY -= transformOffsetY
                 keyboardType = .awakeTransform
                 
-                UIView.animate(withDuration: animateTime, animations: {
+                let time: TimeInterval = TimeInterval(abs(transformOffsetY) / animateBaseHeight * animateTime)
+                UIView.animate(withDuration: time, animations: {
                     self.transformView!.transform = self.transformView!.transform.translatedBy(x: 0, y: transformOffsetY)
                 })
             }
@@ -252,14 +254,16 @@ extension WisdomKeyboardKing {
                 transformSumY = transformSumY - transformOffsetY
                 keyboardType = .awakeTransform
                 
-                UIView.animate(withDuration: animateTime, animations: {
+                let time: TimeInterval = TimeInterval(abs(transformOffsetY) / animateBaseHeight * animateTime)
+                UIView.animate(withDuration: time, animations: {
                     self.transformView!.transform = self.transformView!.transform.translatedBy(x: 0, y: transformOffsetY)
                 })
             }else if responseMaY > 0{
+                let time: TimeInterval = TimeInterval(abs(transformSumY) / animateBaseHeight * animateTime)
                 transformSumY = 0
                 keyboardType = .awakeNormal
                 
-                UIView.animate(withDuration: animateTime, animations: {
+                UIView.animate(withDuration: time, animations: {
                     self.transformView!.transform = self.transform != nil ? self.transform!:CGAffineTransform.identity
                 })
             }
