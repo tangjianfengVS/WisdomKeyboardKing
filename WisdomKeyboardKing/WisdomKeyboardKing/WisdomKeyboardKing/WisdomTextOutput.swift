@@ -111,15 +111,18 @@ public class WisdomTextOutput: NSObject {
         return resString
     }
     
-    /**  Expiration time filter： 过期输出格式样式
-                                  [今天8点过期]   [明天过期]   [后天过期]
+    /**  Expiration time filter：  过期输出格式样式      [今天8点过期]   [明天过期]   [后天过期]
      *   timesText:               过期时间原始数据
      *   serverTimesText:         当前时间对比         (传nil默认与本地时间比对）
-     *   type:                    输入处理的数据类型    (确认 WisdomInputTimeConvertType)
-     
+     *   type:                    输入处理的数据类型    (确认WisdomInputTimeConvertType)
+     *   displayTypeList:         需要支持显示的过期时间类型数组，是WisdomExpiredTimeType类型数组
+     *   返回值:                   Bool: 是否过期     （true未过期，fales已经过期）
      *   @discussion:             -------因为OC不支持多数据返回值类型，所以此方法只支持Swift调用（OC版见下面）------
      */
-    public class func expiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(Bool,String) {
+    public class func expiredTimeOutput(timesText: String,
+                                        serverTimesText: String?,
+                                        type: WisdomInputTimeConvertType,
+                                        displayTypeList: [WisdomExpiredTimeType.RawValue]) ->(Bool,String) {
         let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
         var targetTime = resTime.0
         var currentTime = resTime.1
@@ -143,35 +146,44 @@ public class WisdomTextOutput: NSObject {
 
         if Int(currentTimeSum + currentHMNew)! < Int(targetTimeSum + targetHMNew)!{
             if Int(targetTimeSum)! - Int(currentTimeSum)! == 2{
+                if displayTypeList.contains(WisdomExpiredTimeType.expiredAfterTomorrow_hour.hashValue){
+                    let h = WisdomTextOutput.getDetailHour(targetHMNew: targetHMNew)
+                    return (true,"后天"+h+"过期")
+                }
                 return (true,"后天过期")
             }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 1{
+                if displayTypeList.contains(WisdomExpiredTimeType.expiredTomorrow_hour.hashValue){
+                    let h = WisdomTextOutput.getDetailHour(targetHMNew: targetHMNew)
+                    return (true,"明天"+h+"点过期")
+                }
                 return (true,"明天过期")
             }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 0{
-                let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
-                let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
-
-                var h: String = String(targetHMNew[startIndex..<endIndex])
-                let intH: Int = Int(h)!
-                h = (intH >= 10) ? h+"点":String(h.last!)+"点"
-                return (true,"今天"+h+"过期")
+                if displayTypeList.contains(WisdomExpiredTimeType.expiredToday_hour.hashValue){
+                    let h = WisdomTextOutput.getDetailHour(targetHMNew: targetHMNew)
+                    return (true,"今天"+h+"过期")
+                }else if displayTypeList.contains(WisdomExpiredTimeType.expiredToday.hashValue){
+                    return (true,"今天过期")
+                }
             }
             return (false,targetN+"年"+targetY+"月"+targetR+"日")
         }
         return (false,targetN+"年"+targetY+"月"+targetR+"日")
     }
     
-    /**  Expiration time filter： 过期输出格式样式
-                                  [今天8点过期]   [明天过期]   [后天过期]
+    /**  Expiration time filter： 过期输出格式样式      [今天8点过期]   [明天过期]   [后天过期]
      *   timesText:               过期时间原始数据
      *   serverTimesText:         当前时间对比         (传nil默认与本地时间比对）
-     *   type:                    输入处理的数据类型    (确认 WisdomInputTimeConvertType)
-     
-     *   @discussion:             ------因为OC不支持多数据返回值类型，所以OC处理过期数据调用此方法------
+     *   type:                    输入处理的数据类型    (确认WisdomInputTimeConvertType)
+     *   displayTypeList:         需要支持显示的过期时间类型数组，是WisdomExpiredTimeType类型数组
      *   返回值String:             需要显示过期描述，会有值返回
-                                  不需要显示过期描述，返回 ""
+     *                            不需要显示过期描述，返回 ""
+     *   @discussion:             ------因为OC不支持多数据返回值类型，所以OC处理过期数据调用此方法------
      */
-    @objc public class func oc_ExpiredTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) ->(String){
-        let res = WisdomTextOutput.expiredTimeOutput(timesText: timesText, serverTimesText: serverTimesText, type: type)
+    @objc public class func oc_ExpiredTimeOutput(timesText: String,
+                                                 serverTimesText: String?,
+                                                 type: WisdomInputTimeConvertType,
+                                                 displayTypeList: [WisdomExpiredTimeType.RawValue]) ->(String){
+        let res = WisdomTextOutput.expiredTimeOutput(timesText: timesText, serverTimesText: serverTimesText, type: type, displayTypeList: displayTypeList)
         if res.0 {
             return res.1
         }
@@ -180,9 +192,9 @@ public class WisdomTextOutput: NSObject {
     
     /**  History time:    输出格式样式
      *                    2017年08月12日 21:30        （非同年）
-                          09月12日 23:30              （同年）
-                          昨天 20:30                  （昨天）
-                          上午 10:30，下午 13:30        (当天）
+     *                    09月12日 23:30              （同年）
+     *                    昨天 20:30                  （昨天）
+     *                    上午 10:30，下午 13:30        (当天）
      *   timesText:       历史时间原始数据
      *   serverTimestamp: 当前时间对比                 （传nil默认与本地时间比对）
      *   type:            输入处理的数据类型             (确认 WisdomInputTimeConvertType)
@@ -301,5 +313,15 @@ extension WisdomTextOutput{
         endIndex = time.index(time.startIndex, offsetBy: 13)
         let currentHM: String = String(time[startIndex..<endIndex])
         return (currentN,currentY,currentR,currentHM)
+    }
+    
+    fileprivate class func getDetailHour(targetHMNew: String)-> String{
+        let startIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 0)
+        let endIndex = targetHMNew.index(targetHMNew.startIndex, offsetBy: 2)
+        
+        var h: String = String(targetHMNew[startIndex..<endIndex])
+        let intH: Int = Int(h)!
+        h = (intH >= 10) ? h+"点":String(h.last!)+"点"
+        return h
     }
 }

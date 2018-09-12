@@ -80,20 +80,14 @@ class WisdomKeyboardKing: NSObject{
         func nextView(view: UIView)->UIView {
             var nextRes = view.next
             
-            while(nextRes != nil) {
+            while(nextRes != nil){
                 if let VC = nextRes as? UIViewController{
-                    if formerTapGestures == nil{
-                        formerTapGestures = VC.view.gestureRecognizers as? [UITapGestureRecognizer]
-                    }
-                    if transform == nil{
-                        transform = VC.view.transform
-                    }
-                    VC.view.gestureRecognizers = nil
-                    VC.view.addGestureRecognizer(currentTapGesture)
+                    setGestureAndTransform(targetView: VC.view)
                     return VC.view
                 }
                 nextRes = nextRes?.next
             }
+            setGestureAndTransform(targetView: view.superview!)
             return view.superview!
         }
         
@@ -101,18 +95,26 @@ class WisdomKeyboardKing: NSObject{
             if let textField = view as? UITextField{
                 switch textField.wisdomTransformTarget {
                 case .next:
-                    _ = nextView(view: textField)
+                    setGestureAndTransform(targetView: textField.superview!)
                     transformView = textField.superview
                 case .root:
                     transformView = nextView(view: textField)
+                case .window:
+                    let window = UIApplication.shared.keyWindow
+                    setGestureAndTransform(targetView: window!)
+                    transformView = window
                 }
             }else if let textView = view as? UITextView{
                 switch textView.wisdomTransformTarget {
                 case .next:
-                    _ = nextView(view: textView)
+                    setGestureAndTransform(targetView: textView.superview!)
                     transformView = textView.superview
                 case .root:
                     transformView = nextView(view: textView)
+                case .window:
+                    let window = UIApplication.shared.keyWindow
+                    setGestureAndTransform(targetView: window!)
+                    transformView = window
                 }
             }
         }
@@ -272,6 +274,18 @@ extension WisdomKeyboardKing {
 }
 
 extension WisdomKeyboardKing {
+    //记录gesture,transform
+    fileprivate func setGestureAndTransform(targetView: UIView) {
+        if formerTapGestures == nil{
+            formerTapGestures = targetView.gestureRecognizers as? [UITapGestureRecognizer]
+        }
+        if transform == nil{
+            transform = targetView.transform
+        }
+        targetView.gestureRecognizers = nil
+        targetView.addGestureRecognizer(currentTapGesture)
+    }
+    
     @objc fileprivate func tapGesture(tap: UITapGestureRecognizer) {
         if transformView != nil{
             transformView!.endEditing(true)
