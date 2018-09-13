@@ -4,16 +4,18 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
 
 —————WisdomKeyboardKing： The first phase of Framework function—————
 
-一：Keyboard popup, auto dodge UITextField, UITextView class controls
+一：Swift SDK, complete compatible OC call
+
+二：Keyboard popup, auto dodge UITextField, UITextView class controls
            Note: a large number of UITextField and UITextView on the same page can be avoided accurately.
 
-二：Toggle input, the keyboard exactly avoids UITextField, UITextView class controls
+三：Toggle input, the keyboard exactly avoids UITextField, UITextView class controls
 
-三：UITextField, UITextView's evading distance from the keyboard, supports settable
+四：UITextField, UITextView's evading distance from the keyboard, supports settable
       Spacing setting property：   betweenKeyboardSpace
       There are spacing defaults： 10.0
 
-四：UITextField, UITextView's wisdomTask task,
+五：UITextField, UITextView's wisdomTask task,
         ---------wisdomTask Analysis of the----------
            *beginTasks:   Callbacks when invoking the keyboard            
            *changeTasks:  Callback when changing text content                        
@@ -38,7 +40,7 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
             //print(view,title,rect)
         }
  
- 五：Support number type processing display
+ 六：Support number type processing display
     enum：
     public enum WisdomTextOutputMode {
        case normal
@@ -63,7 +65,7 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
     Note: the WisdomTextOutputMode is set, the keyboard output type is mandatory digital output, 
          and the input process is displayed dynamically
 
-六：Support processing display of expiration time (input time will be greater than current time)
+七：Support processing display of expiration time (input time will be greater than current time)
     Application scenario: coupons and other date expiration tips are displayed
 
     enum：
@@ -80,19 +82,58 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
     input_joint              //Text "-" splicing
     input_N_Y_R_joint        //Text "year, month, day" are spliced together
 
-    Use case:：
-    /**                         
-     *   timesText:              Expiration time raw data
-     *   serverTimesText:        Current time comparison (no default and local time comparison)
-     *   type:                   Input processing data types (WisdomInputTimeConvertType)
+    --------------过期输出显示样式说明：    
+    /**
+     *  The expiration time type that needs to be supported for display
+     *  需要支持显示的过期时间类型
+     *  使用规则：  1.默认值: expiredTomorrow， expiredAfterTomorrow
+     *            2.精确度越高，级别越高:  expiredToday_hour > expiredToday
+     *                                 expiredTomorrow_hour > expiredTomorrow
+     *                                 expiredAfterTomorrow_hour > expiredAfterTomorrow
+     *            3.设置了高级别，会过滤低级别样式，低级别样式不再显示
+     *            4.高级别,低级别同时显示，只安装高级别样式显示
+     *            5.expiredToday 和 expiredToday_hour都不设置，“今天过期”不显示
      */
-     let res = WisdomTextOutput.expiredTimeOutput(timesText: "1535557797", serverTimesText: nil, type: .timestamp)
+    @objc public enum WisdomExpiredTimeType: NSInteger {
+       case expiredToday=0                 //今天过期
+       case expiredToday_hour=1            //今天8点过期
+       case expiredTomorrow=2              //明天过期
+       case expiredTomorrow_hour=3         //明天8点过期
+       case expiredAfterTomorrow=4         //后天过期
+       case expiredAfterTomorrow_hour=5    //后天8点过期
+    }
 
-     The results show support types: 1.  [8 PM today] [tomorrow] [day after tomorrow] 3
-                                     2.  The BOOL value indicates whether it is expired 
+    Use case:
+    /**  Expiration time filter：  过期输出格式样式      [今天8点过期]   [明天过期]   [后天过期]
+     *   timesText:                过期时间原始数据
+     *   serverTimesText:          当前时间对比         (传nil默认与本地时间比对）
+     *   type:                     输入处理的数据类型    (确认WisdomInputTimeConvertType)
+     *   displayTypeList:          需要支持显示的过期时间类型数组，是WisdomExpiredTimeType类型数组
+     *   expiredStr:               过期文字描述，传nill或者空，结尾默认拼接"过期"
+     *   返回值:                    Bool: 是否过期     （true未过期，fales已经过期）
+     */
+     public class func expiredTimeOutput(timesText: String,
+                                        serverTimesText: String?,
+                                        type: WisdomInputTimeConvertType,
+                                        displayTypeList: [WisdomExpiredTimeType.RawValue],
+                                        expiredStr: String?) ->(Bool,String) {
+                                        
+     }
+     
+     OC调用：
+     @objc public class func oc_ExpiredTimeOutput(timesText: String,
+                                                 serverTimesText: String?,
+                                                 type: WisdomInputTimeConvertType,
+                                                 displayTypeList: [WisdomExpiredTimeType.RawValue],
+                                                 expiredStr: String?) ->(String){
+     }
+     
+
+     结果显示支持类型：1. 今天过期   今天8点过期  明天过期   明天8点过期   后天过期  后天8点过期
+                    2. swift 方法BOOL值表示是否过期
           
 
-七：Support processing display of history time (input time is not greater than current time)
+八：Support processing display of history time (input time is not greater than current time)
     Application scenario: chat history time prompt display
 
     enum：
@@ -121,8 +162,9 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
                                        09月12日 23:30            （同年）
                                        昨天 20:30                （昨天）
                                        上午 10:30，下午 13:30      (当天）
+                                       
 
-
+---------------------------------------------------------------------------------------
 
 
 # WisdomKeyboardKing
@@ -130,17 +172,19 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
 
 —————WisdomKeyboardKing 一期Framework功能，下面看一期7个功能—————---
 
-一：键盘弹出，自动避让UITextField，UITextView类控件
+一：Swift SDK,完成兼容OC调用
+
+二：键盘弹出，自动避让UITextField，UITextView类控件
    注：(同一个页面大量的UITextField与UITextView，可以准确避让)
 
-二：切换输入，键盘准确避让UITextField，UITextView类控件
+三：切换输入，键盘准确避让UITextField，UITextView类控件
 
-三：UITextField，UITextView的避让与keyboard的间距，支持可设置
+四：UITextField，UITextView的避让与keyboard的间距，支持可设置
 
       间距设置属性： betweenKeyboardSpace
       有间距默认值： 10.0
        
-四：UITextField，UITextView的wisdomTask任务，
+五：支持 UITextField，UITextView的wisdomTask任务，
 
       --------------wisdomTask分析------------
       beginTasks:   唤起键盘时回调             
@@ -166,7 +210,7 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
           //关闭键盘或者更换相应对象时回调
       }
         
-五：支持号码数字类型的处理显示
+六：支持号码数字类型的处理显示
 
       枚举：
       public enum WisdomTextOutputMode {
@@ -192,8 +236,8 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
     注：设置了WisdomTextOutputMode，键盘输出类型都是强制数字输出
 
 
-六：支持过期时间的处理显示（输入处理时间会大于当前时间）
-   应用场景：优惠券等 日期过期提示显示
+七：支持过期时间的处理显示（输入处理时间会大于当前时间）
+   应用场景：优惠券 和 活动 等日期过期提示显示
 
     枚举：
     public enum WisdomInputTimeConvertType {
@@ -208,20 +252,60 @@ Intelligent keyboard manager, handles position determination of keyboard and UIT
         timestamp_13=1         //13位时间戳
         input_joint            //"-"拼接
         input_N_Y_R_joint      //"年，月，日"拼接
+        
+        
+    --------------过期输出显示样式说明：    
+    /**
+     *  The expiration time type that needs to be supported for display
+     *  需要支持显示的过期时间类型
+     *  使用规则：  1.默认值: expiredTomorrow， expiredAfterTomorrow
+     *            2.精确度越高，级别越高:  expiredToday_hour > expiredToday
+     *                                 expiredTomorrow_hour > expiredTomorrow
+     *                                 expiredAfterTomorrow_hour > expiredAfterTomorrow
+     *            3.设置了高级别，会过滤低级别样式，低级别样式不再显示
+     *            4.高级别,低级别同时显示，只安装高级别样式显示
+     *            5.expiredToday 和 expiredToday_hour都不设置，“今天过期”不显示
+     */
+    @objc public enum WisdomExpiredTimeType: NSInteger {
+       case expiredToday=0                 //今天过期
+       case expiredToday_hour=1            //今天8点过期
+       case expiredTomorrow=2              //明天过期
+       case expiredTomorrow_hour=3         //明天8点过期
+       case expiredAfterTomorrow=4         //后天过期
+       case expiredAfterTomorrow_hour=5    //后天8点过期
+    }
 
     使用案例：
-    /**                         
-     *   timesText:               过期时间原始数据
-     *   serverTimesText:         当前时间对比       (不传默认与本地时间比对）
-     *   type:                    输入处理的数据类型  (WisdomInputTimeConvertType)
+    /**  Expiration time filter：  过期输出格式样式      [今天8点过期]   [明天过期]   [后天过期]
+     *   timesText:                过期时间原始数据
+     *   serverTimesText:          当前时间对比         (传nil默认与本地时间比对）
+     *   type:                     输入处理的数据类型    (确认WisdomInputTimeConvertType)
+     *   displayTypeList:          需要支持显示的过期时间类型数组，是WisdomExpiredTimeType类型数组
+     *   expiredStr:               过期文字描述，传nill或者空，结尾默认拼接"过期"
+     *   返回值:                    Bool: 是否过期     （true未过期，fales已经过期）
      */
-    let res = WisdomTextOutput.expiredTimeOutput(timesText: "1535557797", serverTimesText: nil, type: .timestamp)
+     public class func expiredTimeOutput(timesText: String,
+                                        serverTimesText: String?,
+                                        type: WisdomInputTimeConvertType,
+                                        displayTypeList: [WisdomExpiredTimeType.RawValue],
+                                        expiredStr: String?) ->(Bool,String) {
+                                        
+     }
+     
+     OC调用：
+     @objc public class func oc_ExpiredTimeOutput(timesText: String,
+                                                 serverTimesText: String?,
+                                                 type: WisdomInputTimeConvertType,
+                                                 displayTypeList: [WisdomExpiredTimeType.RawValue],
+                                                 expiredStr: String?) ->(String){
+     }
+     
 
-    结果显示支持类型：1.  [今天8点过期]   [明天过期]   [后天过期] 3种
-                   2.  BOOL值表示是否过期
+     结果显示支持类型：1. 今天过期   今天8点过期  明天过期   明天8点过期   后天过期  后天8点过期
+                    2. swift 方法BOOL值表示是否过期
                   
                   
-七：支持历史时间的处理显示（不会大于当前时间）
+八：支持历史时间的处理显示（不会大于当前时间）
 
    应用场景：聊天 历史时间提示显示
 
