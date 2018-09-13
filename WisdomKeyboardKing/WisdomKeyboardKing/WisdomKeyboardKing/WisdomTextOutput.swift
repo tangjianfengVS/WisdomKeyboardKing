@@ -116,53 +116,60 @@ public class WisdomTextOutput: NSObject {
      *   serverTimesText:         当前时间对比         (传nil默认与本地时间比对）
      *   type:                    输入处理的数据类型    (确认WisdomInputTimeConvertType)
      *   displayTypeList:         需要支持显示的过期时间类型数组，是WisdomExpiredTimeType类型数组
+     *   expiredStr:              过期文字描述，传nill或者空，结尾默认拼接"过期"
      *   返回值:                   Bool: 是否过期     （true未过期，fales已经过期）
      *   @discussion:             -------因为OC不支持多数据返回值类型，所以此方法只支持Swift调用（OC版见下面）------
      */
     public class func expiredTimeOutput(timesText: String,
                                         serverTimesText: String?,
                                         type: WisdomInputTimeConvertType,
-                                        displayTypeList: [WisdomExpiredTimeType.RawValue]) ->(Bool,String) {
+                                        displayTypeList: [WisdomExpiredTimeType.RawValue],
+                                        expiredStr: String?) ->(Bool,String) {
+        var expiredTitle = "过期"
+        if expiredStr != nil &&  expiredStr!.count > 0{
+            expiredTitle = expiredStr!
+        }
+        
         let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
         var targetTime = resTime.0
         var currentTime = resTime.1
-
+        
         var timeList = WisdomTextOutput.getTime(time: &targetTime)
         let targetN = timeList.0
         let targetY = timeList.1
         let targetR = timeList.2
         let targetHM = timeList.3
-
+        
         timeList = WisdomTextOutput.getTime(time: &currentTime)
         let currentN = timeList.0
         let currentY = timeList.1
         let currentR = timeList.2
         let currentHM = timeList.3
-
+        
         let targetTimeSum = targetN + targetY + targetR
         let currentTimeSum = currentN + currentY + currentR
         let targetHMNew = targetHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
         let currentHMNew = currentHM.replacingOccurrences(of: ":", with: "", options: .literal, range: nil)
-
+        
         if Int(currentTimeSum + currentHMNew)! < Int(targetTimeSum + targetHMNew)!{
             if Int(targetTimeSum)! - Int(currentTimeSum)! == 2{
                 if displayTypeList.contains(WisdomExpiredTimeType.expiredAfterTomorrow_hour.hashValue){
                     let h = WisdomTextOutput.getDetailHour(targetHMNew: targetHMNew)
-                    return (true,"后天"+h+"过期")
+                    return (true,"后天"+h+expiredTitle)
                 }
-                return (true,"后天过期")
+                return (true,"后天"+expiredTitle)
             }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 1{
                 if displayTypeList.contains(WisdomExpiredTimeType.expiredTomorrow_hour.hashValue){
                     let h = WisdomTextOutput.getDetailHour(targetHMNew: targetHMNew)
-                    return (true,"明天"+h+"点过期")
+                    return (true,"明天"+h+expiredTitle)
                 }
-                return (true,"明天过期")
+                return (true,"明天"+expiredTitle)
             }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 0{
                 if displayTypeList.contains(WisdomExpiredTimeType.expiredToday_hour.hashValue){
                     let h = WisdomTextOutput.getDetailHour(targetHMNew: targetHMNew)
-                    return (true,"今天"+h+"过期")
+                    return (true,"今天"+h+expiredTitle)
                 }else if displayTypeList.contains(WisdomExpiredTimeType.expiredToday.hashValue){
-                    return (true,"今天过期")
+                    return (true,"今天"+expiredTitle)
                 }
             }
             return (false,targetN+"年"+targetY+"月"+targetR+"日")
@@ -175,6 +182,7 @@ public class WisdomTextOutput: NSObject {
      *   serverTimesText:         当前时间对比         (传nil默认与本地时间比对）
      *   type:                    输入处理的数据类型    (确认WisdomInputTimeConvertType)
      *   displayTypeList:         需要支持显示的过期时间类型数组，是WisdomExpiredTimeType类型数组
+     *   expiredStr:              过期文字描述，传nill或者空，结尾默认拼接"过期"
      *   返回值String:             需要显示过期描述，会有值返回
      *                            不需要显示过期描述，返回 ""
      *   @discussion:             ------因为OC不支持多数据返回值类型，所以OC处理过期数据调用此方法------
@@ -182,8 +190,13 @@ public class WisdomTextOutput: NSObject {
     @objc public class func oc_ExpiredTimeOutput(timesText: String,
                                                  serverTimesText: String?,
                                                  type: WisdomInputTimeConvertType,
-                                                 displayTypeList: [WisdomExpiredTimeType.RawValue]) ->(String){
-        let res = WisdomTextOutput.expiredTimeOutput(timesText: timesText, serverTimesText: serverTimesText, type: type, displayTypeList: displayTypeList)
+                                                 displayTypeList: [WisdomExpiredTimeType.RawValue],
+                                                 expiredStr: String?) ->(String){
+        let res = WisdomTextOutput.expiredTimeOutput(timesText: timesText,
+                                                     serverTimesText: serverTimesText,
+                                                     type: type,
+                                                     displayTypeList: displayTypeList,
+                                                     expiredStr: expiredStr)
         if res.0 {
             return res.1
         }
