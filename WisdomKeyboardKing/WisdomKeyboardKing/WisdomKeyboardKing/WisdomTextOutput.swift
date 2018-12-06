@@ -122,7 +122,7 @@ public class WisdomTextOutput: NSObject {
      */
     public class func expiredTimeOutput(timesText: String,
                                         serverTimesText: String?,
-                                        type: WisdomInputTimeConvertType,
+                                        type: WisdomInputTimeFormatType,
                                         displayTypeList: [WisdomExpiredTimeType.RawValue],
                                         expiredStr: String?) ->(Bool,String) {
         var expiredTitle = "过期"
@@ -153,22 +153,22 @@ public class WisdomTextOutput: NSObject {
         
         if Int(currentTimeSum + currentHMNew)! < Int(targetTimeSum + targetHMNew)!{
             if Int(targetTimeSum)! - Int(currentTimeSum)! == 2{
-                if displayTypeList.contains(WisdomExpiredTimeType.expiredAfterTomorrow_hour.hashValue){
+                if displayTypeList.contains(WisdomExpiredTimeType.expiredAfterTomorrow_hour.rawValue){
                     let h = WisdomTextOutput.getDetailHour(targetHMNew: targetHMNew)
                     return (true,"后天"+h+expiredTitle)
                 }
                 return (true,"后天"+expiredTitle)
             }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 1{
-                if displayTypeList.contains(WisdomExpiredTimeType.expiredTomorrow_hour.hashValue){
+                if displayTypeList.contains(WisdomExpiredTimeType.expiredTomorrow_hour.rawValue){
                     let h = WisdomTextOutput.getDetailHour(targetHMNew: targetHMNew)
                     return (true,"明天"+h+expiredTitle)
                 }
                 return (true,"明天"+expiredTitle)
             }else if Int(targetTimeSum)! - Int(currentTimeSum)! == 0{
-                if displayTypeList.contains(WisdomExpiredTimeType.expiredToday_hour.hashValue){
+                if displayTypeList.contains(WisdomExpiredTimeType.expiredToday_hour.rawValue){
                     let h = WisdomTextOutput.getDetailHour(targetHMNew: targetHMNew)
                     return (true,"今天"+h+expiredTitle)
-                }else if displayTypeList.contains(WisdomExpiredTimeType.expiredToday.hashValue){
+                }else if displayTypeList.contains(WisdomExpiredTimeType.expiredToday.rawValue){
                     return (true,"今天"+expiredTitle)
                 }
             }
@@ -189,7 +189,7 @@ public class WisdomTextOutput: NSObject {
      */
     @objc public class func oc_ExpiredTimeOutput(timesText: String,
                                                  serverTimesText: String?,
-                                                 type: WisdomInputTimeConvertType,
+                                                 type: WisdomInputTimeFormatType,
                                                  displayTypeList: [WisdomExpiredTimeType.RawValue],
                                                  expiredStr: String?) ->(String){
         let res = WisdomTextOutput.expiredTimeOutput(timesText: timesText,
@@ -212,7 +212,7 @@ public class WisdomTextOutput: NSObject {
      *   serverTimestamp: 当前时间对比                 （传nil默认与本地时间比对）
      *   type:            输入处理的数据类型             (确认 WisdomInputTimeConvertType)
      */
-    @objc public class func historyTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeConvertType) -> String{
+    @objc public class func historyTimeOutput(timesText: String, serverTimesText: String?, type: WisdomInputTimeFormatType) -> String{
         let resTime = WisdomTextOutput.getTargetAndCurrentTime(timesText: timesText, serverTimesText: serverTimesText, type: type)
         var targetTime = resTime.0
         var currentTime = resTime.1
@@ -254,7 +254,7 @@ public class WisdomTextOutput: NSObject {
 
 extension WisdomTextOutput{
     //MARK: 时间戳转时间String，默认： .timestamp_10 类型
-    @objc public class func getTimetampToStr(time: Int, format: DateFormatter, type: WisdomInputTimeConvertType)-> String{
+    @objc public class func getTimetampToStr(time: Int, format: DateFormatter, type: WisdomInputTimeFormatType)-> String{
         var timeInterval: TimeInterval = TimeInterval(time)
         if type == .timestamp_13 {
             timeInterval = TimeInterval(time)/1000.0
@@ -264,7 +264,7 @@ extension WisdomTextOutput{
     }
 
     fileprivate class func getTargetAndCurrentTime(timesText: String, serverTimesText: String?,
-                                                   type: WisdomInputTimeConvertType) ->(String,String){
+                                                   type: WisdomInputTimeFormatType) ->(String,String){
         let format = DateFormatter()
         var targetTime = timesText
         var currentTime = ""

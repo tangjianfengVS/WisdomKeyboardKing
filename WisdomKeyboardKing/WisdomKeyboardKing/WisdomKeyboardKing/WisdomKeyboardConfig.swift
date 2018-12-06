@@ -63,11 +63,11 @@ public enum WisdomKeyboardType {
  *  Time Raw data types for time processing
  *  时间处理的原始数据类型
  */
-@objc public enum WisdomInputTimeConvertType: NSInteger {
-    case timestamp_10=0        //10位时间戳
-    case timestamp_13=1        //13位时间戳
-    case input_joint=2         //"-"拼接
-    case input_N_Y_R_joint=3   //"年，月，日"拼接
+@objc public enum WisdomInputTimeFormatType: NSInteger {
+    case timestamp_10=0        //10位时间戳 String
+    case timestamp_13=1        //13位时间戳 String
+    case input_joint=2         //"-"拼接 String
+    case input_N_Y_R_joint=3   //"年，月，日"拼接 String
 }
 
 /**

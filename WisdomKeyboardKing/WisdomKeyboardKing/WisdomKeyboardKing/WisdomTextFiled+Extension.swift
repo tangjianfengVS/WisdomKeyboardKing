@@ -95,6 +95,11 @@ fileprivate var WisdomTextOutputModeKey_TextField = "WisdomTextOutputModeKey_Tex
         }
     }
     
+    /**  键盘任务回调
+     *   beginTasks:   键盘将要唤起时回调任务
+     *   changeTasks:  键盘变化文字内容时回调任务
+     *   endTasks:     关闭键盘或者更换相应对象时回调任务
+     */
     public func wisdomTask(beginTasks: @escaping WisdomEventTask, changeTasks: @escaping WisdomEventTask, endTasks: @escaping WisdomEventTask) {
         beginTask = beginTasks
         changeTask = beginTasks
